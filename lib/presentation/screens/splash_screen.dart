@@ -1,3 +1,4 @@
+import 'package:algenie/presentation/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,22 +28,32 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Scaffold(
         body:  Center(
-          child: Container(
-                width: 200,
-                height: 150,
-                color: Colors.grey[300],
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.image, size: 40, color: Colors.grey[700]),
-                    SizedBox(height: 8),
-                    Text(
-                      "Image will appear here",
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                  ],
-                ),    
-            ),
+          child: InkWell(
+            onTap: ()=>{
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (context) => const WelcomeScreen(),
+                ),
+              )
+            },
+            child: Container(
+                  width: 200,
+                  height: 150,
+                  color: Colors.grey[300],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.image, size: 40, color: Colors.grey[700]),
+                      SizedBox(height: 8),
+                      Text(
+                        "Image will appear here",
+                        style: TextStyle(color: Colors.grey[700]),
+                      ),
+                    ],
+                  ),    
+              ),
+          ),
         ),
     );
   }
