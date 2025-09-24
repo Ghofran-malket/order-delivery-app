@@ -1,3 +1,4 @@
+import 'package:algenie/presentation/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -105,8 +106,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/login',
-                      arguments: {'userType': 'Genie', 'cameFrom' : ''});
+                  // Navigator.pushNamed(context, '/login',
+                  //     arguments: {'userType': 'Genie', 'cameFrom' : ''});
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
                 },
                 child: Center(
                   child: Container(
