@@ -1,8 +1,10 @@
+import 'package:algenie/services/api_service.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider with ChangeNotifier {
   final AuthStorage _storage = AuthStorage();
+  final AuthService _apiService = AuthService();
 
   bool _isLoggedIn = false;
   String? _token;
@@ -16,4 +18,10 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> login(String email, String password) async {
+    final data = await _apiService.login(email, password);
+    _token = data['token'];
+    _isLoggedIn = true;
+    notifyListeners();
+  }
 }

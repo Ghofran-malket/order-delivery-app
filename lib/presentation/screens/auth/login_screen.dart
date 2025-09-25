@@ -1,7 +1,8 @@
 import 'package:algenie/presentation/widgets/textfield_widget.dart';
+import 'package:algenie/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,15 +11,24 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool loading = false;
 
-  // late AuthBloc authBloc;
-  @override
-  void initState() {
-    super.initState();
-    // authBloc = BlocProvider.of<AuthBloc>(context);
+  void handleLogin() async {
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    setState(() => loading = true);
+    try {
+      await auth.login(emailController.text, passwordController.text);
+      print("Successd");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Login Successd")));
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Login failed")));
+      print("failed");
+    }
+    setState(() => loading = false);
   }
 
   @override
@@ -35,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        
         body: ListView(
           children: [
             Stack(
@@ -73,8 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   right: 0,
                   left: 0,
                   child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(17)),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil().setWidth(17)),
                     decoration: BoxDecoration(
                       color: const Color.fromRGBO(255, 255, 255, 0.31),
                       boxShadow: [
@@ -91,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           topLeft: Radius.circular(ScreenUtil().setWidth(11)),
                           topRight: Radius.circular(ScreenUtil().setWidth(11))),
                     ),
-                    height: sizeAware.height * 0.45 ,
+                    height: sizeAware.height * 0.45,
                     child: Column(
                       children: [
                         Padding(
@@ -102,8 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: ScreenUtil().setHeight(2.0),
                             width: ScreenUtil().setWidth(43),
                             child: DecoratedBox(
-                              decoration: BoxDecoration(color: Colors.blue  //("#C4C4C4")
-                            ),
+                              decoration:
+                                  BoxDecoration(color: Colors.blue //("#C4C4C4")
+                                      ),
                             ),
                           ),
                         ),
@@ -124,35 +134,74 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         //email text field
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-                          child: TextFieldWidget(hint: 'Email', controller: emailController, icon: Icons.email,)
-                        ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: ScreenUtil().setHeight(5)),
+                            child: TextFieldWidget(
+                              hint: 'Email',
+                              controller: emailController,
+                              icon: Icons.email,
+                            )),
 
-                        // password text field 
+                        // password text field
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-                          child: TextFieldWidget(hint: 'Password', controller: passwordController, icon: Icons.password,)
-                        ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: ScreenUtil().setHeight(5)),
+                            child: TextFieldWidget(
+                              hint: 'Password',
+                              controller: passwordController,
+                              icon: Icons.password,
+                            )),
+                            
+                        loading ? CircularProgressIndicator() : Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: ScreenUtil().setHeight(10)),
+                          child: Container(
+                            width: sizeAware.width,
+                            height: ScreenUtil().setHeight(40),
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                ScreenUtil().setWidth(7),
+                              ),
+                            ),
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: WidgetStateColor.fromMap({
+                                  WidgetState.any: Colors.indigo,
+                                })
+                                    //color: Config.secondaryColor,
 
-                        SizedBox(height: ScreenUtil().setHeight(10)),
+                                    ),
+                                onPressed: () { handleLogin();},
+                                child: Text(
+                                  'Sign In',
+                                  style: const TextStyle(
+                                    fontFamily: "Poppin-semibold",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                )),
+                          ),
+                        ),
 
                         Center(
-                            child: Text("Don't Have an Account?",
+                            child: Text(
+                          "Don't Have an Account?",
                           style: TextStyle(
-                            fontFamily: "Poppin-semibold",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.grey  //HexColor('#999999'),
-                          ),
+                              fontFamily: "Poppin-semibold",
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey //HexColor('#999999'),
+                              ),
                         )),
 
-                        SizedBox(height: ScreenUtil().setHeight(10)),
 
                         Center(
                           child: InkWell(
-                            onTap: () async {
-                            },
-                            child: Text("Register Now",
+                            onTap: () async {},
+                            child: Text(
+                              "Register Now",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: "Poppin-semibold",
