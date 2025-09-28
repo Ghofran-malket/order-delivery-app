@@ -1,3 +1,4 @@
+import 'package:algenie/presentation/screens/auth/register_screen.dart';
 import 'package:algenie/presentation/widgets/textfield_widget.dart';
 import 'package:algenie/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -199,7 +200,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         Center(
                           child: InkWell(
-                            onTap: () async {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (context) => const RegisterScreen(),
+                                ),
+                              );
+                            },
                             child: Text(
                               "Register Now",
                               textAlign: TextAlign.left,
