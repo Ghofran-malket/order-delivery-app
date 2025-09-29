@@ -1,3 +1,4 @@
+import 'package:algenie/data/models/user_model.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,13 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     final data = await _apiService.login(email, password);
+    _token = data['token'];
+    _isLoggedIn = true;
+    notifyListeners();
+  }
+
+  Future<void> register(User user) async {
+    final data = await _apiService.register(user);
     _token = data['token'];
     _isLoggedIn = true;
     notifyListeners();
