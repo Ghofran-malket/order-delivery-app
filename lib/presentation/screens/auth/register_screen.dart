@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:algenie/data/models/user_model.dart';
+import 'package:algenie/presentation/screens/invite_friends_screen.dart';
 import 'package:algenie/presentation/screens/terms_conditions_screen.dart';
 import 'package:algenie/presentation/widgets/animated_dropdown_list_widget.dart';
 import 'package:algenie/presentation/widgets/profile_image_widget.dart';
@@ -73,25 +72,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  void handleRegister() async {
+  void handleRegister(context) async {
     final auth = Provider.of<AuthProvider>(context, listen: false);
     setState(() => loading = true);
 
     try {
       await Future.delayed(const Duration(seconds: 1));
-      await auth.register(
-        User(
+      await auth.register(User(
           name: nameController.text.trim(),
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
           role: selectedFromDropdown!.toLowerCase(),
-          number: numberController.text.trim()
-        )
+          number: numberController.text.trim()));
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (context) => const InviteFriendsScreen(),
+        ),
       );
-      
-
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Registration Successd")));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Registration failed")),
@@ -311,22 +309,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       horizontal: ScreenUtil().setWidth(17),
                       vertical: ScreenUtil().setHeight(8)),
                   child: TextFieldWidget(
-                    hint: 'Email',
-                    controller: emailController,
-                    icon: Icons.email,
-                    keyboardType: TextInputType.emailAddress
-                  )),
+                      hint: 'Email',
+                      controller: emailController,
+                      icon: Icons.email,
+                      keyboardType: TextInputType.emailAddress)),
 
-               Padding(
+              Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: ScreenUtil().setWidth(17),
                       vertical: ScreenUtil().setHeight(8)),
                   child: TextFieldWidget(
-                    hint: 'Password',
-                    controller: passwordController,
-                    icon: Icons.password,
-                    keyboardType: TextInputType.visiblePassword
-                  )),
+                      hint: 'Password',
+                      controller: passwordController,
+                      icon: Icons.password,
+                      keyboardType: TextInputType.visiblePassword)),
 
               //button
               //TODO ensure that all the field is not empty including the photo
@@ -345,9 +341,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               _emptyNumber ||
                               _emptyRole ||
                               selectedFromDropdown == null))
-                            {
-                              handleRegister()
-                            }
+                            {handleRegister(context)}
                         }),
               )
             ],

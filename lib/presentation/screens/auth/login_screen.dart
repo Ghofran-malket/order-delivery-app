@@ -1,4 +1,5 @@
 import 'package:algenie/presentation/screens/auth/register_screen.dart';
+import 'package:algenie/presentation/screens/invite_friends_screen.dart';
 import 'package:algenie/presentation/widgets/textfield_widget.dart';
 import 'package:algenie/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +17,17 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   bool loading = false;
 
-  void handleLogin() async {
+  void handleLogin(context) async {
     final auth = Provider.of<AuthProvider>(context, listen: false);
     setState(() => loading = true);
     try {
       await auth.login(emailController.text, passwordController.text);
-      print("Successd");
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Login Successd")));
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (context) => const InviteFriendsScreen(),
+        ),
+      );
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Login failed")));
@@ -173,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     //color: Config.secondaryColor,
 
                                     ),
-                                onPressed: () { handleLogin();},
+                                onPressed: () { handleLogin(context);},
                                 child: Text(
                                   'Sign In',
                                   style: const TextStyle(
