@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:algenie/data/models/user_model.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:share_plus/share_plus.dart';
 
 class AuthService {
   final AuthStorage storage = AuthStorage();
@@ -18,6 +19,7 @@ class AuthService {
     if(response.statusCode == 200){
       final data = jsonDecode(response.body);
       await storage.saveToken(data['token']);
+      await storage.saveUserId(data['id']);
       return data;
     }else {
       throw Exception('Login failed');
@@ -26,12 +28,6 @@ class AuthService {
   }
 
   //user register
-  
-  // "name": "customer",
-  //   "email": "customer@gmail.com",
-  //   "password": "customer",
-  //   "role": "customer",
-  //   "number": "2198984944984"
   Future<Map<String, dynamic>> register(User user) async {
     final response = await http.post(
       Uri.parse('${baseUrl}users/register'),
@@ -43,14 +39,33 @@ class AuthService {
         'role': user.role,
         'number': user.number}),
     );
-    print("Code is" +response.statusCode.toString());
 
     if(response.statusCode == 201){
       final data = jsonDecode(response.body);
       await storage.saveToken(data['token']);
+      await storage.saveUserId(data['id']);
       return data;
     }else {
       throw Exception('Register failed');
+    }
+
+  }
+
+  Future<dynamic> inviteFriend(String? userId) async {
+    final response = await http.get(
+      Uri.parse('${baseUrl}users/invite-link/$userId'),
+      headers: {'Content-Type': 'application/json'}
+    );
+
+    if(response.statusCode == 200){
+      final data = jsonDecode(response.body);
+      final String link = data['inviteLink'];
+      await SharePlus.instance.share(
+        ShareParams(text: 'Join me on this app: $link')
+      );
+      
+    }else {
+      throw Exception('Failed to generate link');
     }
 
   }

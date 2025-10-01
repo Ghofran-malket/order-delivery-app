@@ -32,4 +32,9 @@ class AuthProvider with ChangeNotifier {
     _isLoggedIn = true;
     notifyListeners();
   }
+
+  Future<dynamic> inviteFriend() async {
+    final userId = await _storage.getUserId();
+    await _apiService.inviteFriend(userId);
+  }
 }
