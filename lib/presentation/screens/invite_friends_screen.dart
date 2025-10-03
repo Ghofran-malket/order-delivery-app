@@ -1,3 +1,4 @@
+import 'package:algenie/presentation/screens/genie_screens/home_screen.dart';
 import 'package:algenie/presentation/widgets/primary_button_widget.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:flutter/material.dart';
@@ -175,7 +176,12 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
 
               InkWell(
                   onTap: () {
-                  
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) => const GenieHome(),
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 22, horizontal: 17),
