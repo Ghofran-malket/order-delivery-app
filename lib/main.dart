@@ -1,7 +1,9 @@
 import 'package:algenie/presentation/screens/auth/login_screen.dart';
+import 'package:algenie/presentation/screens/invite_friends_screen.dart';
 import 'package:algenie/presentation/screens/splash_screen.dart';
 import 'package:algenie/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 void main() async{
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(360, 690));
     final authProvider = Provider.of<AuthProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: authProvider.isLoggedIn ? SplashScreen() : LoginScreen(),
+      home: authProvider.isLoggedIn ? InviteFriendsScreen() : LoginScreen(),
       
     );
   }

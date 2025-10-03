@@ -45,7 +45,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(360, 690));
     final sizeAware = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
