@@ -4,6 +4,7 @@ class AuthStorage {
   final _storage = const FlutterSecureStorage();
   static const _tokenKey = 'auth_token';
   static const _userId = 'userId';
+  static const _isOnline = 'is_online';
 
   Future<String?> getToken() async {
     return await _storage.read(key: _tokenKey);
@@ -23,6 +24,15 @@ class AuthStorage {
 
   Future<void> saveUserId(userId) async{
     await _storage.write(key: _userId, value: userId);
+  }
+
+  Future<bool?> getIsOnline() async {
+    final value = await _storage.read(key: _isOnline);
+    return value == 'true';
+  }
+
+  Future<void> saveIsOnline(isOnline) async{
+    await _storage.write(key: _isOnline, value: isOnline);
   }
 
 }
