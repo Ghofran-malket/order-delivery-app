@@ -1,8 +1,10 @@
+import 'package:algenie/providers/auth_provider.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class GenieHome extends StatefulWidget {
@@ -13,13 +15,23 @@ class GenieHome extends StatefulWidget {
 }
 
 class _GenieHomeState extends State<GenieHome> {
+  
   bool loading = false;
-  bool online = true;
+  //bool online = false;
   bool show = true;
   bool data = true;
 
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<AuthProvider>().checkOnlineStatus();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final auth = context.watch<AuthProvider>();
     return WillPopScope(
         onWillPop: () async {
           SystemNavigator.pop();
@@ -41,7 +53,7 @@ class _GenieHomeState extends State<GenieHome> {
                               size: 30,
                             ),
                           )
-                        : !online
+                        : auth.isOnline!
                             ? Text('_goOfflineWidget(context)')
                             : _buildGoOnlineBar(),
                     boxShadow: [
@@ -76,7 +88,7 @@ class _GenieHomeState extends State<GenieHome> {
                               size: 30,
                             ),
                           )
-                        : !online
+                        : auth.isOnline!
                             ? Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: ScreenUtil().setWidth(20)),
@@ -272,14 +284,10 @@ class _GenieHomeState extends State<GenieHome> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-                    // genieBloc.add(
-                    //   GoOnlineRequested(
-                    //     lat: _initialPosition!.latitude,
-                    //     long: _initialPosition!.longitude,
-                    //   ),
-                    // );
+                  onTap: () async{
                     //genieRepository.updateGenieLocation();
+                    await  context.read<AuthProvider>().goOnline();
+                    
                   },
                   child: Container(
                     width: ScreenUtil().setWidth(126),
