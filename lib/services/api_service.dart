@@ -71,4 +71,26 @@ class AuthService {
 
   }
 
+  Future<dynamic> goOnline(String userId, String token) async {
+    final response = await http.post(
+      Uri.parse('${baseUrl}genie/goOnline'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'userId': userId,
+        'token': token,
+        'latitude': 'latitude',
+        'longitude': 'longitude'}),
+    );
+
+    if(response.statusCode == 201){
+      final data = jsonDecode(response.body);
+      await storage.saveIsOnline('true');
+      return data;
+      
+    }else {
+      throw Exception('Failed to create an online genie document');
+    }
+
+  }
+
 }

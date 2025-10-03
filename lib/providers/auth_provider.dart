@@ -9,9 +9,11 @@ class AuthProvider with ChangeNotifier {
 
   bool _isLoggedIn = false;
   String? _token;
+  bool? _isOnline = false;
   
   bool get isLoggedIn => _isLoggedIn;
   String? get token => _token;
+  bool? get isOnline => _isOnline;
 
   loadToken() async{
     _token = await _storage.getToken();
@@ -30,6 +32,25 @@ class AuthProvider with ChangeNotifier {
     final data = await _apiService.register(user);
     _token = data['token'];
     _isLoggedIn = true;
+    notifyListeners();
+  }
+
+  checkOnlineStatus() async{
+    _isOnline = await _storage.getIsOnline() ?? false;
+    notifyListeners();
+  }
+
+  Future<void> goOnline() async {
+    final userId = await _storage.getUserId();
+    final token = await _storage.getToken();
+
+    try {
+      await _apiService.goOnline(userId! , token!);
+      _isOnline = true;
+    } catch (e) {
+      //_error = e.toString();
+      print(e.toString());
+    }
     notifyListeners();
   }
 }
