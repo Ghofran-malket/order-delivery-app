@@ -51,7 +51,8 @@ class AuthService {
 
   }
 
-  Future<dynamic> inviteFriend(String? userId) async {
+  Future<dynamic> inviteFriend() async {
+    final userId = await storage.getUserId();
     final response = await http.get(
       Uri.parse('${baseUrl}users/invite-link/$userId'),
       headers: {'Content-Type': 'application/json'}

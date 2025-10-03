@@ -1,8 +1,8 @@
 import 'package:algenie/presentation/widgets/primary_button_widget.dart';
-import 'package:algenie/providers/auth_provider.dart';
+import 'package:algenie/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+
 
 class InviteFriendsScreen extends StatefulWidget {
   const InviteFriendsScreen({super.key});
@@ -14,8 +14,8 @@ class InviteFriendsScreen extends StatefulWidget {
 class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
 
   void inviteLink() async {
-    final auth = Provider.of<AuthProvider>(context, listen: false);
-    await auth.inviteFriend();
+    final AuthService apiService = AuthService();
+    await apiService.inviteFriend();
   }
 
   @override
