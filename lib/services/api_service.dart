@@ -73,15 +73,15 @@ class AuthService {
 
   }
 
-  Future<dynamic> goOnline(String userId, String token) async {
+  Future<dynamic> goOnline(String userId, String token, double lat, double long) async {
     final response = await http.post(
       Uri.parse('${baseUrl}genie/goOnline'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'userId': userId,
         'token': token,
-        'latitude': 'latitude',
-        'longitude': 'longitude'}),
+        'latitude': lat.toString(),
+        'longitude': long.toString()}),
     );
 
     if(response.statusCode == 201){

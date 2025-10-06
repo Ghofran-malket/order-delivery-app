@@ -4,6 +4,7 @@ import 'package:algenie/data/models/user_model.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AuthProvider with ChangeNotifier {
   final AuthStorage _storage = AuthStorage();
@@ -46,12 +47,14 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> goOnline() async {
+  Future<void> goOnline({required Position currentLocation}) async {
     final userId = await _storage.getUserId();
     final token = await _storage.getToken();
+    final lat = currentLocation.latitude;
+    final long = currentLocation.longitude;
 
     try {
-      await _apiService.goOnline(userId! , token!);
+      await _apiService.goOnline(userId! , token!, lat , long );
       _isOnline = true;
     } catch (e) {
       //_error = e.toString();

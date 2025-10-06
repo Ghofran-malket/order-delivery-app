@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -21,6 +22,15 @@ class _GenieHomeState extends State<GenieHome> {
   bool loading = false;
   bool show = false;
   bool data = true;
+
+  final LocationSettings locationSettings = LocationSettings(
+  accuracy: LocationAccuracy.high,
+  distanceFilter: 100,
+);
+
+  Future<Position> getCurrentLocation() async{
+    return await Geolocator.getCurrentPosition(locationSettings: locationSettings);
+  }
 
   @override
   void initState() {
@@ -348,7 +358,7 @@ class _GenieHomeState extends State<GenieHome> {
                     //   ),
                     // );
                     //genieRepository.updateGenieLocation();
-                    await context.read<AuthProvider>().goOnline();
+                    await context.read<AuthProvider>().goOnline(currentLocation: await getCurrentLocation());
                   },
                   child: Container(
                     width: ScreenUtil().setWidth(126),
