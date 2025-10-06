@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:algenie/data/models/user_model.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthStorage {
@@ -5,6 +8,7 @@ class AuthStorage {
   static const _tokenKey = 'auth_token';
   static const _userId = 'userId';
   static const _isOnline = 'is_online';
+  static const _user = 'user';
 
   Future<String?> getToken() async {
     return await _storage.read(key: _tokenKey);
@@ -33,6 +37,16 @@ class AuthStorage {
 
   Future<void> saveIsOnline(isOnline) async{
     await _storage.write(key: _isOnline, value: isOnline);
+  }
+
+  Future<User?> getUser() async {
+    final userJson = await _storage.read(key: _user);
+    if (userJson == null) return null;
+    return User.fromJson(jsonDecode(userJson!));
+  }
+
+  Future<void> saveUser(User user) async{
+    await _storage.write(key: _user, value: jsonEncode(user.toJson()));
   }
 
 }
