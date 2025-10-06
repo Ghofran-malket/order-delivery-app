@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:algenie/data/models/user_model.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:algenie/utils/auth_storage.dart';
@@ -10,10 +12,12 @@ class AuthProvider with ChangeNotifier {
   bool _isLoggedIn = false;
   String? _token;
   bool? _isOnline = false;
+  User? _user;
   
   bool get isLoggedIn => _isLoggedIn;
   String? get token => _token;
   bool? get isOnline => _isOnline;
+  User? get user => _user;
 
   loadToken() async{
     _token = await _storage.getToken();
@@ -23,15 +27,17 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     final data = await _apiService.login(email, password);
-    _token = data['token'];
+    _token = data.token;
     _isLoggedIn = true;
+    _user = data;
     notifyListeners();
   }
 
   Future<void> register(User user) async {
     final data = await _apiService.register(user);
-    _token = data['token'];
+    _token = data.token;
     _isLoggedIn = true;
+    _user = data;
     notifyListeners();
   }
 
@@ -65,4 +71,13 @@ class AuthProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<void> loadUserFromStorage() async {
+    final savedUser = await _storage.getUser();
+    if (savedUser != null) {
+      _user = savedUser;
+      notifyListeners();
+    }
+  }
+
 }

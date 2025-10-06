@@ -9,7 +9,7 @@ class AuthService {
   final String baseUrl = "http://192.168.1.89:3000/api/";
 
   //user login
-  Future<Map<String, dynamic>> login(String email, String password) async {
+  Future<User> login(String email, String password) async {
     final response = await http.post(
       Uri.parse('${baseUrl}users/login'),
       headers: {'Content-Type': 'application/json'},
@@ -20,7 +20,8 @@ class AuthService {
       final data = jsonDecode(response.body);
       await storage.saveToken(data['token']);
       await storage.saveUserId(data['id']);
-      return data;
+      await storage.saveUser(User.fromJson(data));
+      return User.fromJson(data);
     }else {
       throw Exception('Login failed');
     }
@@ -28,7 +29,7 @@ class AuthService {
   }
 
   //user register
-  Future<Map<String, dynamic>> register(User user) async {
+  Future<User> register(User user) async {
     final response = await http.post(
       Uri.parse('${baseUrl}users/register'),
       headers: {'Content-Type': 'application/json'},
@@ -44,7 +45,8 @@ class AuthService {
       final data = jsonDecode(response.body);
       await storage.saveToken(data['token']);
       await storage.saveUserId(data['id']);
-      return data;
+      await storage.saveUser(User.fromJson(data));
+      return User.fromJson(data);
     }else {
       throw Exception('Register failed');
     }
