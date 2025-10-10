@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/widgets/drawer.dart';
 import 'package:algenie/providers/auth_provider.dart';
+import 'package:algenie/services/order_api_services.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -245,7 +247,35 @@ class _GenieHomeState extends State<GenieHome> {
                             child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: ScreenUtil().setWidth(17)),
-                                child: Container())),
+                                child: StreamBuilder<List<Order>>(
+                                  stream: OrderApiService().getTakenOrders(),
+                                  builder: (BuildContext context, AsyncSnapshot<List<Order>> snapshot) { 
+                                    if (snapshot.connectionState == ConnectionState.waiting) {
+                                      return  Center(child: SpinKitChasingDots(color: Color(0xFFAB2929),));
+                                    }
+
+                                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                      return const Center(child: Text('No orders available'));
+                                    }
+
+                                    return ListView.builder(
+                                      primary: false,
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data!.length,
+                                      itemBuilder: (context, index) {
+                                        final order = snapshot.data![index];
+                                        return ListTile(
+                                          title: Text("Customer Id ${order.customerId}"),
+                                          subtitle: Text("Order status  ${order.orderStatus}"),
+                                          trailing: Text("Genie Id ${order.genieId}"),
+                                        );
+                                      }
+                                    );
+                                  },
+                                )
+                          )
+                        ),
                       )
                     ])))));
   }
