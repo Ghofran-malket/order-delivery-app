@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:intl/intl.dart' as intl;
 
-class OrderDetailsWidget extends StatelessWidget {
+class OrderCardWidget extends StatelessWidget {
   final Order order;
-  const OrderDetailsWidget({super.key, required this.order});
+  const OrderCardWidget({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {

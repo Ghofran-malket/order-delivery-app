@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:algenie/data/models/order_model.dart';
+import 'package:algenie/presentation/screens/genie_screens/order_details-screen.dart';
 import 'package:algenie/presentation/widgets/drawer.dart';
-import 'package:algenie/presentation/widgets/order_details_widget.dart';
+import 'package:algenie/presentation/widgets/order_card_widget.dart';
 import 'package:algenie/providers/auth_provider.dart';
 import 'package:algenie/services/order_api_services.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -266,7 +267,17 @@ class _GenieHomeState extends State<GenieHome> {
                                       itemCount: snapshot.data!.length,
                                       itemBuilder: (context, index) {
                                         final order = snapshot.data![index];
-                                        return OrderDetailsWidget(order: order);
+                                        return InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => OrderDetailsScreen(order: order)
+                                              ),
+                                            );
+                                          },
+                                          child: OrderCardWidget(order: order)
+                                        );
                                       }
                                     );
                                   },
