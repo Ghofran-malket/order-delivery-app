@@ -105,6 +105,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     nameController.dispose();
     numberController.dispose();
     bioController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
@@ -119,37 +121,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
         },
         child: ContainerBackgroundImage(
           child: ListView(
-            padding: const EdgeInsets.all(0),
+            padding: EdgeInsets.symmetric(
+                horizontal: ScreenUtil().setWidth(17),
+                vertical: ScreenUtil().setHeight(30)),
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ScreenUtil().setWidth(17),
-                    vertical: ScreenUtil().setHeight(30)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(Icons.keyboard_arrow_left,
-                            color: Color(0xFF252B37),
-                            size: ScreenUtil().setSp(25))),
-                    Expanded(
-                      child: Text(
-                        "Become a Genie",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.keyboard_arrow_left,
+                          color: Color(0xFF252B37),
+                          size: ScreenUtil().setSp(25))),
+                  Expanded(
+                    child: Text(
+                      "Become a Genie",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: "Poppin-semibold",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
                     ),
-                    Image.asset('assets/logoCircle.png')
-                  ],
-                ),
+                  ),
+                  Image.asset('assets/logoCircle.png')
+                ],
               ),
 
               createASpacer(20),
@@ -159,188 +158,130 @@ class _RegisterScreenState extends State<RegisterScreen> {
               createASpacer(40),
 
               //name textfield
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(17)),
-                  child: TextFieldWidget(
-                    hint: 'Name',
-                    controller: nameController,
-                    icon: Icons.person,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(
-                          RegExp("[0-9a-zA-Z \$ @ &-_]")),
-                    ],
-                  )),
+              TextFieldWidget(
+                hint: 'Name',
+                controller: nameController,
+                icon: Icons.person,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(
+                      RegExp("[0-9a-zA-Z \$ @ &-_]")),
+                ],
+              ),
 
               _emptyName ? validateEmptyField() : Container(),
 
               createASpacer(5),
 
               //text this will be used as.....
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(28)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "This will be used as your profile photo & name",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontFamily: "Poppin-semibold",
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF4B4B4B),
-                      ),
+
+              //padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(28)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "This will be used as your profile photo & name",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontFamily: "Poppin-semibold",
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF4B4B4B),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
 
+              SizedBox(height: ScreenUtil().setHeight(8)),
+
               //number textfield
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(17),
-                      vertical: ScreenUtil().setHeight(8)),
-                  child: TextFieldWidget(
-                    hint: 'Number',
-                    controller: numberController,
-                    icon: Icons.call,
-                    keyboardType: TextInputType.phone,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  )),
+              TextFieldWidget(
+                hint: 'Number',
+                controller: numberController,
+                icon: Icons.call,
+                keyboardType: TextInputType.phone,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
 
               _emptyNumber ? validateEmptyField() : Container(),
 
+              SizedBox(height: ScreenUtil().setHeight(16)),
+
               //role drop down list
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ScreenUtil().setWidth(17),
-                    vertical: ScreenUtil().setHeight(8)),
-                child: AnimatedDropdown(
-                  onChanged: (value) {
-                    setState(() {
-                      selectedFromDropdown = value;
-                    });
-                  },
-                ),
+              AnimatedDropdown(
+                onChanged: (value) {
+                  setState(() {
+                    selectedFromDropdown = value;
+                  });
+                },
               ),
+
+              SizedBox(height: ScreenUtil().setHeight(8)),
 
               _emptyRole ? validateEmptyField() : Container(),
 
               //text Insert a Bio
-              Padding(
-                padding: EdgeInsets.only(
-                    right: ScreenUtil().setWidth(20),
-                    left: ScreenUtil().setWidth(20),
-                    bottom: ScreenUtil().setHeight(7)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Insert a Bio",
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Insert a Bio",
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                        fontFamily: "Poppin-semibold",
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black),
+                  ),
+                ],
               ),
 
-              //textField insert a bio
-              Padding(
-                padding: EdgeInsets.only(
-                    right: ScreenUtil().setWidth(17),
-                    left: ScreenUtil().setWidth(17),
-                    bottom: ScreenUtil().setHeight(16)),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ScreenUtil().setHeight(12),
-                      horizontal: ScreenUtil().setWidth(12)),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(ScreenUtil().setWidth(20))),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color.fromRGBO(0, 0, 0, 0.12),
-                          offset: Offset(
-                            0.0,
-                            ScreenUtil().setWidth(3.0),
-                          ), //(x,y)
-                          blurRadius: ScreenUtil().setWidth(6.0),
-                        ),
-                      ],
-                      color: Colors.white),
-                  child: TextField(
-                    maxLines: 3,
-                    minLines: 1,
-                    keyboardType: TextInputType.multiline,
-                    onSubmitted: (sdd) {},
-                    controller: bioController,
-                    decoration: InputDecoration.collapsed(
-                        hintText: "Please, Insert your Bio here ...",
-                        hintStyle: TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF4B4B4B),
-                        )),
-                    style: const TextStyle(
-                      fontFamily: "Poppin-semibold",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+              SizedBox(height: ScreenUtil().setHeight(8)),
+
+              TextFieldWidget(
+                hint: 'Please, Insert your Bio here ...',
+                controller: bioController,
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                height: 100,
               ),
+
+              SizedBox(height: ScreenUtil().setHeight(16)),
+
               _emptyBio ? validateEmptyField() : Container(),
 
               //TODO add city and country later
 
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(17),
-                      vertical: ScreenUtil().setHeight(8)),
-                  child: TextFieldWidget(
-                      hint: 'Email',
-                      controller: emailController,
-                      icon: Icons.email,
-                      keyboardType: TextInputType.emailAddress)),
+              TextFieldWidget(
+                  hint: 'Email',
+                  controller: emailController,
+                  icon: Icons.email,
+                  keyboardType: TextInputType.emailAddress),
 
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(17),
-                      vertical: ScreenUtil().setHeight(8)),
-                  child: TextFieldWidget(
-                      hint: 'Password',
-                      controller: passwordController,
-                      icon: Icons.password,
-                      keyboardType: TextInputType.visiblePassword)),
+              SizedBox(height: ScreenUtil().setHeight(16)),
+
+              TextFieldWidget(
+                  hint: 'Password',
+                  controller: passwordController,
+                  icon: Icons.password,
+                  keyboardType: TextInputType.visiblePassword),
+
+              SizedBox(height: ScreenUtil().setHeight(16)),
 
               //button
               //TODO ensure that all the field is not empty including the photo
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: ScreenUtil().setWidth(17),
-                    vertical: ScreenUtil().setHeight(16)),
-                child: PrimaryButtonWidget(
-                    color: Color(0xFFAB2929),
-                    title: 'Register',
-                    isLoading: loading,
-                    function: () => {
-                          checkFields(),
-                          if (!(_emptyName ||
-                              _emptyBio ||
-                              _emptyNumber ||
-                              _emptyRole ||
-                              selectedFromDropdown == null))
-                            {handleRegister(context)}
-                        }),
-              )
+              PrimaryButtonWidget(
+                  color: Color(0xFFAB2929),
+                  title: 'Register',
+                  isLoading: loading,
+                  function: () => {
+                        checkFields(),
+                        if (!(_emptyName ||
+                            _emptyBio ||
+                            _emptyNumber ||
+                            _emptyRole ||
+                            selectedFromDropdown == null))
+                          {handleRegister(context)}
+                      }),
             ],
           ),
         ),
