@@ -6,11 +6,16 @@ import 'package:algenie/presentation/widgets/order_timer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OrderStagesPageviewScreen extends StatelessWidget {
+class OrderStagesPageviewScreen extends StatefulWidget {
   final Order order;
   final Store store;
   OrderStagesPageviewScreen({super.key, required this.order, required this.store});
 
+  @override
+  State<OrderStagesPageviewScreen> createState() => _OrderStagesPageviewScreenState();
+}
+
+class _OrderStagesPageviewScreenState extends State<OrderStagesPageviewScreen> {
   final PageController _pageController = PageController();
 
   void _goToNextPage() {
@@ -30,6 +35,12 @@ class OrderStagesPageviewScreen extends StatelessWidget {
   }
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -38,7 +49,7 @@ class OrderStagesPageviewScreen extends StatelessWidget {
         children: [
 
           //appBar
-          OrderStagesBarWidget(order: order),
+          OrderStagesBarWidget(order: widget.order),
 
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Container(
@@ -66,22 +77,22 @@ class OrderStagesPageviewScreen extends StatelessWidget {
                 OrderStagesBaseScreen(
                   title: 'Go to',
                   buttonLabel: 'Go',
-                  order: order,
-                  store: store,
+                  order: widget.order,
+                  store: widget.store,
                   onAction: _goToNextPage,
                 ),
                 OrderStagesBaseScreen(
                   title: 'Arrive to',
                   buttonLabel: 'Arrived',
-                  order: order,
-                  store: store,
+                  order: widget.order,
+                  store: widget.store,
                   onAction: _goToNextPage,
                 ),
                 OrderStagesBaseScreen(
                   title: 'Pick up from',
                   buttonLabel: 'Done',
-                  order: order,
-                  store: store,
+                  order: widget.order,
+                  store: widget.store,
                   onAction: _goToNextPage,
                   isMap: false
                 ),
