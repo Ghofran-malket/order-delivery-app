@@ -18,8 +18,8 @@ class TextFieldWidget extends StatelessWidget {
       this.icon,
       this.inputFormatters,
       this.keyboardType,
-      this.maxLines,
-      this.height});
+      this.maxLines = 1,
+      this.height =50});
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +56,12 @@ class TextFieldWidget extends StatelessWidget {
                 : null,
             hintText: hint,
             border: InputBorder.none,
-            hintStyle: TextStyle(
+            hintStyle: keyboardType == TextInputType.multiline ? TextStyle(
               fontFamily: "Poppin-semibold",
               fontSize: 12,
               fontWeight: FontWeight.w400,
               color: Color(0xFF4B4B4B),
-            )),
+            ): null),
       ),
     );
   }
