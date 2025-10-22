@@ -24,5 +24,18 @@ class OrderApiService {
 
   }
 
+  Future<Order?> getOrderById(String orderId) async {
+    final response = await http.get(
+      Uri.parse('${baseUrl}orders/getOrderById/?orderId=$orderId'),
+      headers: {'Content-Type': 'application/json'}
+    );
+    if(response.statusCode == 200){
+      final Map<String, dynamic> orderJson = jsonDecode(response.body);
+      return Order.fromJson(orderJson);
+    } else {
+      return null;
+    }
+
+  }
 
 }
