@@ -229,15 +229,15 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                             //update store status to done
                             OrderApiService().updateStoreStatus(widget.order.orderId, widget.store.id);
                             //update the order receipt value field to the sum of the old value and the receiptController value
-
+                            final int totalvalue = int.parse(widget.order.totalReceiptValue) + int.parse(receiptController.text) ;
+                            final updatedOrder = await OrderApiService().updateOrderReceiptValue(widget.order.orderId, totalvalue.toString());
                             // if this is the last store then send notification to customer the summary is ready and go to customer location screen
                             // else go back to orderstages pageview
-                            final updatedOrder = await OrderApiService().getOrderById(widget.order.orderId);
                             if(hasPendingStores(updatedOrder!)){
                               Navigator.push(
                                 context,
                                 MaterialPageRoute<void>(
-                                  builder: (context) => OrderDetailsScreen(order: updatedOrder!,),
+                                  builder: (context) => OrderDetailsScreen(order: updatedOrder,),
                                 ),
                               );
                             }else{
