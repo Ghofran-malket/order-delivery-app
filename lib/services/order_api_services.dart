@@ -62,4 +62,17 @@ class OrderApiService {
       return null;
     }
   }
+
+  Future<Order?> updateOrderStatus(String orderId, String orderStatus) async {
+    final response = await http.put(
+      Uri.parse('${baseUrl}orders/updateOrderStatus/?orderId=$orderId&&orderStatus=$orderStatus'),
+      headers: {'Content-Type': 'application/json'}
+    );
+    if(response.statusCode == 200){
+      final Map<String, dynamic> orderJson = jsonDecode(response.body);
+      return Order.fromJson(orderJson);
+    } else {
+      return null;
+    }
+  }
 }
