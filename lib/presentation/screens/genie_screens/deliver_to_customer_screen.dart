@@ -1,4 +1,5 @@
 import 'package:algenie/data/models/order_model.dart';
+import 'package:algenie/presentation/screens/rate_screen.dart';
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/slider_button_widget.dart';
 import 'package:algenie/services/order_api_services.dart';
@@ -150,6 +151,14 @@ class _DeliverToCustomerScreenState extends State<DeliverToCustomerScreen> {
                     onAction: () async {
                       await OrderApiService().updateOrderStatus(widget.order.orderId, "delivered");
                       //if okay then go to rate a customer screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => RateScreen(
+                            orderId: widget.order.orderId,
+                          ),
+                        ),
+                      );
                     },
                   ) : Container(),
 
