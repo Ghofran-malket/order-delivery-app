@@ -112,4 +112,19 @@ class AuthService {
 
   }
 
+  Future<User> getUserInfo(String userId) async {
+    
+    final response = await http.get(
+      Uri.parse('${baseUrl}users/info/?userId=$userId'),
+      headers: {'Content-Type': 'application/json'}
+    );
+
+    if(response.statusCode == 200){
+      final Map<String, dynamic> userJson = jsonDecode(response.body);
+      return User.fromJson(userJson);
+    }else {
+      throw Exception('Failed to get user iformation');
+    }
+
+  }
 }
