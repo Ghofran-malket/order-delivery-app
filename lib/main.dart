@@ -2,6 +2,7 @@ import 'package:algenie/presentation/screens/auth/login_screen.dart';
 import 'package:algenie/presentation/screens/invite_friends_screen.dart';
 import 'package:algenie/presentation/screens/splash_screen.dart';
 import 'package:algenie/providers/auth_provider.dart';
+import 'package:algenie/startup_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: authProvider.isLoggedIn ? InviteFriendsScreen() : LoginScreen(),
+      home: authProvider.isLoggedIn ? StartupWidget() : SplashScreen(),
       
     );
   }

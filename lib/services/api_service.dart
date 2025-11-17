@@ -127,4 +127,16 @@ class AuthService {
     }
 
   }
+
+  Future loadUserStatus() async {
+    try{
+      final user = await storage.getUser();
+      final role = user?.role;
+      return {
+        "role" : role,
+      };
+    }catch(e){
+      throw Exception("Failed to load user status ${e.toString()}");
+    }
+  }
 }
