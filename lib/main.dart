@@ -1,5 +1,3 @@
-import 'package:algenie/presentation/screens/auth/login_screen.dart';
-import 'package:algenie/presentation/screens/invite_friends_screen.dart';
 import 'package:algenie/presentation/screens/splash_screen.dart';
 import 'package:algenie/providers/auth_provider.dart';
 import 'package:algenie/startup_widget.dart';
@@ -35,6 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
       ),
       home: authProvider.isLoggedIn ? StartupWidget() : SplashScreen(),
