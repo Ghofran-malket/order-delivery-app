@@ -1,5 +1,7 @@
 import 'package:algenie/data/models/order_model.dart';
+import 'package:algenie/presentation/screens/genie_screens/report_a_problem_screen.dart';
 import 'package:algenie/presentation/widgets/slider_button_widget.dart';
+import 'package:algenie/presentation/widgets/user_data_widget.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,111 +39,7 @@ class _RateScreenState extends State<RateScreen> {
               var customer = snapshot.data!;
               return Column(
                 children: <Widget>[
-                  //appBar
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: Text(
-                          "Reviews",
-                          textAlign: TextAlign.center,
-                          //style: FontConfig.semiBold_20,
-                        ),
-                      ),
-                      Image.asset('assets/logoCircle.png')
-                    ],
-                  ),
-              
-                  SizedBox(height: ScreenUtil().setHeight(50)),
-              
-                  Container(
-                      height: ScreenUtil().setHeight(100),
-                      width: ScreenUtil().setHeight(100),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: NetworkImage(customer.image!)))),
-                  
-                  SizedBox(height: ScreenUtil().setHeight(10)),
-              
-                  Text(
-                    customer.name,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: "Poppins-Medium",
-                      fontSize: ScreenUtil().setSp(18),
-                      color: Color(0xFF252B37),
-                    ),
-                  ),
-                  SizedBox(height: ScreenUtil().setHeight(3)),
-                  Text(
-                    "${customer.city!} , ${customer.country!}",
-                    style: TextStyle(
-                      fontFamily: "Poppins-Regular",
-                      fontSize: ScreenUtil().setSp(12),
-                      //color: HexColor("#858585"),
-                    ),
-                  ),
-                  SizedBox(height: ScreenUtil().setHeight(3)),
-              
-                  Text(
-                    "${customer.name} knows these languages : ${customer.languages}",
-                    style: TextStyle(
-                      fontFamily: "Poppins-Regular",
-                      fontSize: ScreenUtil().setSp(12),
-                      color: Color(0xFF858585),
-                    ),
-                  ),
-                  SizedBox(height: ScreenUtil().setHeight(20)),
-              
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Wrap(
-                        direction: Axis.horizontal,
-                        alignment: WrapAlignment.start,
-                        spacing: ScreenUtil().setWidth(5.3),
-                        children: <Widget>[
-                          Text(
-                            customer.likeCount.toString(),
-                            //style: FontConfig.semiBold_12
-                          ),
-                          Icon(
-                            Icons.thumb_up_alt,
-                            color: Color(0xFFAB2929),
-                          )
-                        ],
-                      ),
-                      Wrap(
-                          direction: Axis.horizontal,
-                          alignment: WrapAlignment.start,
-                          spacing: ScreenUtil().setWidth(5.3),
-                          children: <Widget>[
-                            Text(
-                              customer.disLikeCount!.abs().toString(),
-                              //style: FontConfig.semiBold_12
-                            ),
-                            Icon(
-                              Icons.thumb_down_alt,
-                              color: Color(0xFFAB2929),
-                            )
-                          ])
-                    ],
-                  ),
-              
-                  SizedBox(height: ScreenUtil().setHeight(20)),
-              
-                  Text(
-                    customer.bio!,
-                    style: TextStyle(
-                      fontFamily: "Poppins-Regular",
-                      fontSize: ScreenUtil().setSp(13.2),
-                      color: Color(0xFF858585),
-                    ),
-                  ),
-              
-                  SizedBox(height: ScreenUtil().setHeight(40)),
+                  UserDataWidget(user: customer, title: 'Reviews'),
               
                   Row(
                     children: [
@@ -179,8 +77,7 @@ class _RateScreenState extends State<RateScreen> {
                             width: ScreenUtil().setHeight(60),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.white,
-                                border: Border.all(color: Colors.grey)),
+                                color: Colors.grey[200]),
                             child:
                                 Icon(Icons.thumb_up_rounded, color: likeClicked ?Color(0xFFAB2929) :Colors.grey)),
                       ),
@@ -201,8 +98,8 @@ class _RateScreenState extends State<RateScreen> {
                             width: ScreenUtil().setHeight(60),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.white,
-                                border: Border.all(color: Colors.grey)),
+                                color: Colors.grey[200]
+                            ),
                             child:
                                 Icon(Icons.thumb_down_rounded, color: disLikeClicked ?Color(0xFFAB2929) :Colors.grey)),
                       ),
@@ -216,6 +113,12 @@ class _RateScreenState extends State<RateScreen> {
                       label: "Report a Customer",
                       onAction: () async {
                         // go to reports screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) => ReportAProblemScreen(order:widget.order),
+                          ),
+                        );
                       }),
               
                 ],

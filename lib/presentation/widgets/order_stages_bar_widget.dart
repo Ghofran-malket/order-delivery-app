@@ -1,5 +1,6 @@
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/report_a_problem_screen.dart';
+import 'package:algenie/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -21,7 +22,12 @@ class OrderStagesBarWidget extends StatelessWidget {
         break;
 
       case "View customer profile":
-        print("View customer profile");
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (context) => ProfileScreen(order: order),
+          ),
+        );
         break;
       default:
         print("Default");
@@ -92,6 +98,7 @@ class OrderStagesBarWidget extends StatelessWidget {
             ),
             PopupMenuButton<String>(
               onSelected: (val) => handleClick(val, context),
+              color: Colors.white,
               itemBuilder: (BuildContext context) {
                 return {"Report a problem", "View customer profile"}
                     .map((String choice) {
