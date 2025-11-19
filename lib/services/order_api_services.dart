@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:algenie/data/models/order_model.dart';
+import 'package:algenie/data/models/report_model.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -74,5 +75,28 @@ class OrderApiService {
     } else {
       return null;
     }
+  }
+
+  Future report(Report report) async {
+    final genieId = await storage.getUserId();
+
+    final response = await http.post(
+      Uri.parse('${baseUrl}reports/create'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'orderId': report.orderId,
+        'genieId':  genieId,
+        'customerId':  report.customerId,
+        'reports':  report.reports,
+        'description':  report.description}),
+    );
+
+    if(response.statusCode == 201){
+      final data = jsonDecode(response.body);
+      return Report.fromJson(data);
+    }else {
+      throw Exception('Report failed');
+    }
+
   }
 }

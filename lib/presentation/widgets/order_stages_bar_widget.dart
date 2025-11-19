@@ -15,7 +15,7 @@ class OrderStagesBarWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute<void>(
-            builder: (context) => ReportAProblemScreen(),
+            builder: (context) => ReportAProblemScreen(order: order,),
           ),
         );
         break;
