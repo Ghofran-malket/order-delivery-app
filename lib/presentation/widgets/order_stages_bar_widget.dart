@@ -25,7 +25,7 @@ class OrderStagesBarWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute<void>(
-            builder: (context) => ProfileScreen(order: order),
+            builder: (context) => ProfileScreen(userId: order.customerId, order: order,),
           ),
         );
         break;

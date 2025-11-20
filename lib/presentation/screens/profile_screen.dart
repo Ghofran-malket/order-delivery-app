@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final Order order;
+  final Order? order;
+  final String userId;
 
-  const ProfileScreen({super.key, required this.order});
+  const ProfileScreen({super.key, this.order, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
             horizontal: ScreenUtil().setWidth(17),
             vertical: ScreenUtil().setHeight(30)),
         child: FutureBuilder(
-            future: AuthService().getUserInfo(order.customerId),
+            future: AuthService().getUserInfo(userId),
             builder: (context, snapshot) {
               if (!snapshot.hasData) return CircularProgressIndicator();
 
@@ -68,17 +69,17 @@ class ProfileScreen extends StatelessWidget {
                   SizedBox(height: ScreenUtil().setHeight(50)),
 
                   //button
-                  SliderButtonWidget(
+                  order != null ? SliderButtonWidget(
                       label: "Report a Customer",
                       onAction: () async {
                         // go to reports screen
                         Navigator.push(
                           context,
                           MaterialPageRoute<void>(
-                            builder: (context) => ReportAProblemScreen(order:order,),
+                            builder: (context) => ReportAProblemScreen(order:order!,),
                           ),
                         );
-                      }),
+                      }): Container(),
                 ],
               );
             }),
