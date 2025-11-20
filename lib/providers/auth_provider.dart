@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:algenie/data/models/user_model.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:algenie/utils/auth_storage.dart';
@@ -39,6 +37,14 @@ class AuthProvider with ChangeNotifier {
     _token = data.token;
     _isLoggedIn = true;
     _user = data;
+    notifyListeners();
+  }
+
+  Future<void> logout() async {
+    await _apiService.logout();
+    _token = null;
+    _isLoggedIn = false;
+    _user = null;
     notifyListeners();
   }
 

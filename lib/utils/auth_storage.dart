@@ -29,6 +29,9 @@ class AuthStorage {
   Future<void> saveUserId(userId) async{
     await _storage.write(key: _userId, value: userId);
   }
+  Future<void> deleteUserId() async{
+    await _storage.delete(key: _userId);
+  }
 
   Future<bool?> getIsOnline() async {
     final value = await _storage.read(key: _isOnline);
@@ -47,6 +50,10 @@ class AuthStorage {
 
   Future<void> saveUser(User user) async{
     await _storage.write(key: _user, value: jsonEncode(user.toJson()));
+  }
+
+  Future<void> deleteUser() async{
+    await _storage.delete(key: _user);
   }
 
 }

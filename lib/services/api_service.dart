@@ -53,6 +53,17 @@ class AuthService {
 
   }
 
+  //user logout
+  Future<void> logout() async {
+    try{
+      await storage.deleteToken();
+      await storage.deleteUserId();
+      await storage.deleteUser();
+    }catch(e){
+      throw Exception(e.toString());
+    }
+  }
+
   Future<dynamic> inviteFriend() async {
     final userId = await storage.getUserId();
     final response = await http.get(
