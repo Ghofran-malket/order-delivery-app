@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileImagePicker extends StatefulWidget {
-  const ProfileImagePicker({super.key});
+  final Function(String) onImagePicked;
+  ProfileImagePicker({super.key, required this.onImagePicked});
 
   @override
   _ProfileImagePickerState createState() => _ProfileImagePickerState();
@@ -13,6 +14,7 @@ class ProfileImagePicker extends StatefulWidget {
 class _ProfileImagePickerState extends State<ProfileImagePicker> {
   File? _imageFile;
   final ImagePicker _picker = ImagePicker();
+  String? _imagePath;
 
   Future<void> _pickImage() async {
     final XFile? pickedFile = await _picker.pickImage(
@@ -23,7 +25,9 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
+        _imagePath = pickedFile.path;
       });
+      widget.onImagePicked(_imagePath!);
     }
   }
 
