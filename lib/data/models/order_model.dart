@@ -11,9 +11,10 @@ class Order {
   Position? orderLocation;
   DateTime? updatedAt;
   String totalReceiptValue;
+  Map<String, dynamic> genieProgress;
 
   Order({required this.genieId, required this.orderId, required this.customerId, required this.stores, required this.orderStatus,
-   this.createdAt, required this.totalReceiptValue, this.orderLocation});
+   this.createdAt, required this.totalReceiptValue, this.orderLocation, required this.genieProgress});
 
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -37,6 +38,7 @@ class Order {
         speed: 0.0,
         speedAccuracy: 0.0,
       ),
+      genieProgress: json['genieProgress']
     );
   }
 

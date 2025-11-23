@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/data/models/user_model.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -150,10 +151,23 @@ class AuthService {
   Future loadUserStatus() async {
     try{
       final user = await storage.getUser();
+      final userId = await storage.getUserId();
       final role = user?.role;
-      return {
-        "role" : role,
-      };
+
+      if(role == 'genie'){
+        final data = await getGenieCurrentOrder(userId!);
+        
+        return {
+          "role" : role,
+          "active": data['active'],
+          "order": data['order']
+        };
+      }else{
+        return {
+          "role" : role
+        };
+      }
+      
     }catch(e){
       throw Exception("Failed to load user status ${e.toString()}");
     }
@@ -169,6 +183,49 @@ class AuthService {
       return User.fromJson(userJson);
     } else {
       throw Exception('Failed to rating');
+    }
+  }
+
+  Future getGenieCurrentOrder(String userId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('${baseUrl}orders/genie/current/?genieId=$userId'),
+        headers: {'Content-Type': 'application/json'}
+      );
+      if(response.statusCode == 200){
+      //   active: true,
+      // order: order
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        final Map<String,dynamic> orderMap = data['order'];
+        final Order order = Order.fromJson(orderMap);
+        return {
+          'active': data['active'],
+          'order': order 
+        };
+      }
+    } catch (e) {
+      throw Exception('Failed to getGenieCurrentOrder');
+    }
+  }
+
+  Future updateGenieProgress({required String orderId, required String  step, int? storeIndex = 0}) async {
+    try {
+      final response = await http.put(
+        Uri.parse('${baseUrl}orders/progress/?orderId=$orderId'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'step': step,
+          'storeIndex': storeIndex}),
+      );
+      if(response.statusCode == 201){
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        return {
+          'success': data['success'],
+          'progress': data['progress']
+        };
+      }
+    } catch (e) {
+      throw Exception('Failed to updateGenieProgress');
     }
   }
 }
