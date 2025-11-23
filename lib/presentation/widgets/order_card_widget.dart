@@ -13,6 +13,7 @@ class OrderCardWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(20)),
       child: Container(
+        height: 200,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(

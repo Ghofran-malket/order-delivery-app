@@ -246,10 +246,7 @@ class _GenieHomeState extends State<GenieHome> {
                               top: ScreenUtil().setHeight(100),
                               right: ScreenUtil().setWidth(5),
                               left: ScreenUtil().setWidth(5),
-                              bottom: ScreenUtil().setHeight(80),
-                              child: Scrollbar(
-                                  thickness: ScreenUtil().setWidth(5),
-                                  child: Padding(
+                              child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal:
                                               ScreenUtil().setWidth(17)),
@@ -266,7 +263,7 @@ class _GenieHomeState extends State<GenieHome> {
                                             );
                                           },
                                           child: OrderCardWidget(
-                                              order: widget.order!)))),
+                                              order: widget.order!))),
                             ) : Container()
                     ])))));
   }
