@@ -3,6 +3,7 @@ import 'package:algenie/presentation/screens/genie_screens/deliver_to_customer_s
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/order_timer_widget.dart';
 import 'package:algenie/presentation/widgets/slider_button_widget.dart';
+import 'package:algenie/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -152,7 +153,8 @@ class CustomerLocationScreen extends StatelessWidget {
                   SizedBox(height: ScreenUtil().setHeight(40)),
                   SliderButtonWidget(
                     label: "Arrived to Cutomer",
-                    onAction: () {
+                    onAction: () async{
+                      await AuthService().updateGenieProgress(orderId: order.orderId, step: 'deliverToCustomer');
                       Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:algenie/presentation/screens/genie_screens/customer_location_screen.dart';
+import 'package:algenie/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -235,6 +236,7 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                             // if this is the last store then send notification to customer the summary is ready and go to customer location screen
                             // else go back to orderstages pageview
                             if(hasPendingStores(updatedOrder!)){
+                              await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'orderDetails');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute<void>(
@@ -243,6 +245,7 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                               );
                             }else{
                               print("No pending store left");
+                              await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'customerLocation');
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute<void>(

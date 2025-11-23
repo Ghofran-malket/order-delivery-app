@@ -1,4 +1,5 @@
 import 'package:algenie/data/models/order_model.dart';
+import 'package:algenie/presentation/screens/genie_screens/home_screen.dart';
 import 'package:algenie/presentation/screens/genie_screens/report_a_problem_screen.dart';
 import 'package:algenie/presentation/widgets/slider_button_widget.dart';
 import 'package:algenie/presentation/widgets/user_data_widget.dart';
@@ -120,6 +121,31 @@ class _RateScreenState extends State<RateScreen> {
                           ),
                         );
                       }),
+                  
+                  SizedBox(height: 20),
+                  
+                  GestureDetector(
+                    onTap: () async {
+                      await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'genieHome');
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) => GenieHome(),
+                          ),
+                        );
+                    },
+                    child: Text(
+                          "Go more orders",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: "Poppin-semibold",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFAB2929),
+                          ),
+                        ),
+                  ),
               
                 ],
               );

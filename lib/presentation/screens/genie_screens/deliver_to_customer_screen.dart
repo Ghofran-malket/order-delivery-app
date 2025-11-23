@@ -2,6 +2,7 @@ import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/rate_screen.dart';
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/slider_button_widget.dart';
+import 'package:algenie/services/api_service.dart';
 import 'package:algenie/services/order_api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -149,8 +150,9 @@ class _DeliverToCustomerScreenState extends State<DeliverToCustomerScreen> {
                   checked ? SliderButtonWidget(
                     label: "Order Delivered",
                     onAction: () async {
-                      await OrderApiService().updateOrderStatus(widget.order.orderId, "delivered");
+                      //await OrderApiService().updateOrderStatus(widget.order.orderId, "delivered");
                       //if okay then go to rate a customer screen
+                      await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'rate');
                       Navigator.push(
                         context,
                         MaterialPageRoute<void>(

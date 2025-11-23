@@ -3,6 +3,7 @@ import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_stages_pageview_screen.dart';
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/order_timer_widget.dart';
+import 'package:algenie/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -263,15 +264,18 @@ class OrderDetailsScreen extends StatelessWidget {
                                     ScreenUtil().setWidth(50),
                                 alignment: Alignment.centerRight,
                                 child: InkWell(
-                                  onTap: () {
+                                  onTap: () async{
                                     if(order.stores[index].storeStatus != "done"){
+                                      await AuthService().updateGenieProgress(orderId: order.orderId, 
+                                            step: 'goToStore', storeIndex: index);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => OrderStagesPageviewScreen(
                                             store: order.stores[index],
                                             order: order,
-                                            
+                                            page: 0,
+                                            storeIndex: index
                                           ),
                                         )
                                       );

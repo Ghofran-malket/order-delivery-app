@@ -4,14 +4,17 @@ import 'package:algenie/presentation/screens/genie_screens/order_stages_base_scr
 import 'package:algenie/presentation/screens/genie_screens/receipt_photo_screen.dart';
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/order_timer_widget.dart';
+import 'package:algenie/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderStagesPageviewScreen extends StatefulWidget {
   final Order order;
   final Store store;
+  final int page;
+  final int storeIndex;
   OrderStagesPageviewScreen(
-      {super.key, required this.order, required this.store});
+      {super.key, required this.order, required this.store, required this.page, required this.storeIndex});
 
   @override
   State<OrderStagesPageviewScreen> createState() =>
@@ -19,9 +22,15 @@ class OrderStagesPageviewScreen extends StatefulWidget {
 }
 
 class _OrderStagesPageviewScreenState extends State<OrderStagesPageviewScreen> {
-  final PageController _pageController = PageController();
+  late PageController _pageController;
 
-  void _goToNextPage() {
+@override
+void initState() {
+  super.initState();
+  _pageController = PageController(initialPage: widget.page);
+}
+
+  Future<void> _goToNextPage() async {
     if (_pageController.page != null && _pageController.page! < 3) {
       print("page number ${_pageController.page}");
       _pageController.nextPage(
@@ -29,7 +38,14 @@ class _OrderStagesPageviewScreenState extends State<OrderStagesPageviewScreen> {
         curve: Curves.easeInOut,
       );
     }
+    if (_pageController.page == 0.0) {
+      await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'arriveToStore', storeIndex: widget.storeIndex);
+    }
+    if (_pageController.page == 1.0) {
+      await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'pickUpDone', storeIndex: widget.storeIndex);
+    }
     if (_pageController.page == 2.0) {
+      await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'receiptPhoto', storeIndex: widget.storeIndex);
       Navigator.push(
         context,
         MaterialPageRoute<void>(
