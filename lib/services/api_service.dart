@@ -208,7 +208,7 @@ class AuthService {
     }
   }
 
-  Future updateGenieProgress({required String orderId, required String  step, int? storeIndex = 0}) async {
+  Future updateGenieProgress({required String orderId, required String  step, int? storeIndex = -1}) async {
     try {
       final response = await http.put(
         Uri.parse('${baseUrl}orders/progress/?orderId=$orderId'),

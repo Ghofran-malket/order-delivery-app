@@ -126,7 +126,7 @@ class _RateScreenState extends State<RateScreen> {
                   
                   GestureDetector(
                     onTap: () async {
-                      await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'genieHome');
+                      await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'delivered');
                       Navigator.of(context).popUntil((route) => route.isFirst);
                       Navigator.push(
                           context,

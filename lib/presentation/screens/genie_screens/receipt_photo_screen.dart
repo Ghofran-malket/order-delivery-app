@@ -68,8 +68,12 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
         ImageSource.gallery; // default fallback
   }
 
-  bool hasPendingStores(Order order) {
-    return order.stores.any((store) => store.storeStatus == 'pending');
+  int? hasPendingStores(Order order) {
+    //return order.stores.any((store) => store.storeStatus == 'pending');
+  
+    return  order.stores.indexWhere(
+      (store) => store.storeStatus == 'pending',
+    );
   }
 
   @override
@@ -235,8 +239,9 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                             final updatedOrder = await OrderApiService().updateOrderReceiptValue(widget.order.orderId, totalvalue.toString());
                             // if this is the last store then send notification to customer the summary is ready and go to customer location screen
                             // else go back to orderstages pageview
-                            if(hasPendingStores(updatedOrder!)){
-                              await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'orderDetails');
+                            int index = hasPendingStores(updatedOrder!) ??  -1;
+                            if(index != -1){
+                              await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'orderDetails', storeIndex: index);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute<void>(

@@ -39,8 +39,7 @@ class OrderCardWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: ScreenUtil().setWidth(12.7)),
                   child: Text(
-                    //"stores[index].name}",
-                    "Customer: order.customerId",
+                    "Customer: ${order.customerId}",
                     style: const TextStyle(
                       fontFamily: "Poppin-semibold",
                       fontSize: 15,
@@ -82,7 +81,6 @@ class OrderCardWidget extends StatelessWidget {
                 ),
                 const SizedBox(width:10),
                 Text(
-                  //"${stores[index].items![i].quantity}",
                   intl.DateFormat("h:mm a").format(order.createdAt!),
                   style: const TextStyle(
                     fontFamily: "Poppin-semibold",
