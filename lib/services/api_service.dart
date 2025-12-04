@@ -26,6 +26,9 @@ class AuthService {
       await storage.saveToken(data['token']);
       await storage.saveUserId(data['id']);
       await storage.saveUser(User.fromJson(data));
+      if(data['role'] == 'genie'){
+        await isOnline(data['id']);
+      }
       return User.fromJson(data);
     }else {
       throw Exception('Login failed');
@@ -117,6 +120,22 @@ class AuthService {
       throw Exception('Failed to create an online genie document');
     }
 
+  }
+
+  Future<dynamic> isOnline(String userId) async {
+    final response = await http.get(
+      Uri.parse('${baseUrl}genie/isOnline/$userId'),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if(response.statusCode == 200){
+      final data = jsonDecode(response.body);
+      bool isOnline = data['isOnline'];
+      await storage.saveIsOnline(isOnline.toString());
+    }else {
+      await storage.saveIsOnline('false');
+      throw Exception('Failed to test if genie is online or not');
+    }
   }
 
   Future<dynamic> goOffline(String userId) async {
