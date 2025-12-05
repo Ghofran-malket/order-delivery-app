@@ -154,9 +154,9 @@ class CustomerLocationScreen extends StatelessWidget {
                   SliderButtonWidget(
                     label: "Arrived to Cutomer",
                     onAction: () async{
+                      final navigator = Navigator.of(context);
                       await AuthService().updateGenieProgress(orderId: order.orderId, step: 'deliverToCustomer');
-                      Navigator.push(
-                          context,
+                      navigator.push(
                           MaterialPageRoute(
                             builder: (context) => DeliverToCustomerScreen(
                               order: order,

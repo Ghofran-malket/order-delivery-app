@@ -150,11 +150,11 @@ class _DeliverToCustomerScreenState extends State<DeliverToCustomerScreen> {
                   checked ? SliderButtonWidget(
                     label: "Order Delivered",
                     onAction: () async {
+                      final navigator = Navigator.of(context);
                       //await OrderApiService().updateOrderStatus(widget.order.orderId, "delivered");
                       //if okay then go to rate a customer screen
                       await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'rate');
-                      Navigator.push(
-                        context,
+                      navigator.push(
                         MaterialPageRoute<void>(
                           builder: (context) => RateScreen(
                             order: widget.order,

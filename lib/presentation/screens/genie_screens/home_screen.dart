@@ -40,8 +40,10 @@ class _GenieHomeState extends State<GenieHome> {
   @override
   void initState() {
     super.initState();
+    final auth = context.read<AuthProvider>();
+
     Future.microtask(() {
-      context.read<AuthProvider>().checkOnlineStatus();
+      auth.checkOnlineStatus();
     });
   }
 
@@ -252,10 +254,10 @@ class _GenieHomeState extends State<GenieHome> {
                                               ScreenUtil().setWidth(17)),
                                       child: InkWell(
                                           onTap: () async {
+                                            final navigator = Navigator.of(context);
                                             await AuthService().updateGenieProgress(orderId: widget.order!.orderId, 
                                             step: 'orderDetails');
-                                            Navigator.push(
-                                              context,
+                                            navigator.push(
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       OrderDetailsScreen(

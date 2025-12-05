@@ -154,15 +154,15 @@ class OrderDetailsScreen extends StatelessWidget {
                             color: Color(0xFFAB2929),
                             title: 'Accept the order', 
                             isLoading: false, 
-                            function: () async => {
-                              await GenieService().acceptOrder(order.orderId),
-                              Navigator.of(context).popUntil((route) => route.isFirst),
-                              Navigator.push(
-                                  context,
+                            function: () async{
+                              final navigator = Navigator.of(context);
+                              await GenieService().acceptOrder(order.orderId);
+                              navigator.popUntil((route) => route.isFirst);
+                              navigator.push(
                                   MaterialPageRoute<void>(
                                     builder: (context) => StartupWidget(),
                                   ),
-                                )
+                                );
                             }
                           ),
                           InkWell(
@@ -304,11 +304,11 @@ class OrderDetailsScreen extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: InkWell(
                                   onTap: () async{
+                                    final navigator = Navigator.of(context);
                                     if(order.stores[index].storeStatus != "done"){
                                       await AuthService().updateGenieProgress(orderId: order.orderId, 
                                             step: 'goToStore', storeIndex: index);
-                                      Navigator.push(
-                                        context,
+                                      navigator.push(
                                         MaterialPageRoute(
                                           builder: (context) => OrderStagesPageviewScreen(
                                             store: order.stores[index],

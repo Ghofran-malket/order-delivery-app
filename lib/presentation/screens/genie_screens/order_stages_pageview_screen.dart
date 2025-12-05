@@ -31,6 +31,7 @@ void initState() {
 }
 
   Future<void> _goToNextPage() async {
+    final navigator = Navigator.of(context);
     if (_pageController.page != null && _pageController.page! < 3) {
       print("page number ${_pageController.page}");
       _pageController.nextPage(
@@ -46,8 +47,7 @@ void initState() {
     }
     if (_pageController.page == 2.0) {
       await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'receiptPhoto', storeIndex: widget.storeIndex);
-      Navigator.push(
-        context,
+      navigator.push(
         MaterialPageRoute<void>(
           builder: (context) => ReceiptPhotoScreen(
             order: widget.order,

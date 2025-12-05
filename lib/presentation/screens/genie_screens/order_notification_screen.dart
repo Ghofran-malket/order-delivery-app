@@ -21,6 +21,7 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
   bool clicked = false;
 
   ring() async {
+    final navigator = Navigator.of(context);
     await player.setAsset('assets/notification.mp3');
     await player.setLoopMode(LoopMode.one);
     player.play();
@@ -28,7 +29,7 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
       if (!clicked) {
         log("You didn't take this order");
         //TODO genie ignore this order
-        Navigator.of(context).pop();
+        navigator.pop();
       }
       player.dispose();
     });
@@ -134,19 +135,18 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
                 color: Color(0xFFAB2929),
                 title: "let's go",
                 isLoading: clicked,
-                function: () async => {
-                      await GenieService().acceptOrder(widget.order.orderId),
-                      setState(() {
-                        clicked = !clicked;
-                      }),
-                      player.dispose(),
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                OrderDetailsScreen(order: widget.order)),
-                      ),
-                    }),
+                function: () async {
+                  final navigator = Navigator.of(context);
+                  await GenieService().acceptOrder(widget.order.orderId);
+                  setState(() {
+                    clicked = !clicked;
+                  });
+                  player.dispose();
+                  navigator.push(
+                    MaterialPageRoute(
+                      builder: (context) => OrderDetailsScreen(order: widget.order)),
+                  );
+                }),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

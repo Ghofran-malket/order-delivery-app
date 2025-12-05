@@ -175,6 +175,7 @@ class _ReportAProblemScreenState extends State<ReportAProblemScreen> {
                   SliderButtonWidget(
                     label: "Submit and continue",
                     onAction: () async {
+                      final navigator = Navigator.of(context);
                       // call api to post a report to the backend (selectedReports)
                       widget.order.orderId;
                       widget.order.customerId;
@@ -185,9 +186,8 @@ class _ReportAProblemScreenState extends State<ReportAProblemScreen> {
                       customerId: widget.order.customerId, genieId: widget.order.genieId, reports: selectedReports, 
                       description: descriptionController.text));
                       await OrderApiService().updateOrderStatus(widget.order.orderId, 'unpublished');
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                      Navigator.push(
-                          context,
+                      navigator.popUntil((route) => route.isFirst);
+                      navigator.push(
                           MaterialPageRoute(builder: (context) => GenieHome()),
                         );
                     },
@@ -198,10 +198,10 @@ class _ReportAProblemScreenState extends State<ReportAProblemScreen> {
                   Center(
                     child: InkWell(
                       onTap: () async {
+                        final navigator = Navigator.of(context);
                         await OrderApiService().updateOrderStatus(widget.order.orderId, "canceled");
-                        Navigator.of(context).pop((route) => route.isFirst);
-                        Navigator.push(
-                          context,
+                        navigator.pop((route) => route.isFirst);
+                        navigator.push(
                           MaterialPageRoute(builder: (context) => GenieHome()),
                         );
                       },

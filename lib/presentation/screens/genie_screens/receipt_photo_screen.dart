@@ -232,6 +232,7 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                       : SliderButtonWidget(
                           label: "Done",
                           onAction: () async {
+                            final navigator = Navigator.of(context);
                             //update store status to done
                             await OrderApiService().updateStoreStatus(widget.order.orderId, widget.store.id);
                             //update the order receipt value field to the sum of the old value and the receiptController value
@@ -242,8 +243,7 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                             int index = hasPendingStores(updatedOrder!) ??  -1;
                             if(index != -1){
                               await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'orderDetails', storeIndex: index);
-                              Navigator.push(
-                                context,
+                              navigator.push(
                                 MaterialPageRoute<void>(
                                   builder: (context) => OrderDetailsScreen(order: updatedOrder,),
                                 ),
@@ -251,8 +251,7 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                             }else{
                               print("No pending store left");
                               await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'customerLocation');
-                              Navigator.pushReplacement(
-                                context,
+                              navigator.pushReplacement(
                                 MaterialPageRoute<void>(
                                   builder: (context) => CustomerLocationScreen(order: widget.order,),
                                 ),
