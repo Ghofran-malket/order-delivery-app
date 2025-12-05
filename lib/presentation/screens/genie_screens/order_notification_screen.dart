@@ -28,7 +28,7 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
     await Future.delayed(Duration(seconds: 60), () async {
       if (!clicked) {
         log("You didn't take this order");
-        //TODO genie ignore this order
+        //genie ignore this order
         navigator.pop();
       }
       player.dispose();
@@ -139,7 +139,7 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
                   final navigator = Navigator.of(context);
                   await GenieService().acceptOrder(widget.order.orderId);
                   setState(() {
-                    clicked = !clicked;
+                    clicked = true;
                   });
                   player.dispose();
                   navigator.push(
@@ -153,8 +153,13 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
               children: [
                 InkWell(
                   onTap: () async {
+                    final navigator = Navigator.of(context);
+                    await GenieService().rejectOrder(widget.order.orderId);
+                    setState(() {
+                      clicked = true;
+                    });
                     player.dispose();
-                    //TODO reject order and go to online screen
+                    navigator.pop();
                   },
                   child: Text(
                     "Reject",
@@ -169,7 +174,9 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
                 InkWell(
                   onTap: () async {
                     final navigator = Navigator.of(context);
-
+                    setState(() {
+                      clicked = true;
+                    });
                     player.dispose();
                     navigator.popUntil((route) => route.isFirst);
                     //go to order deatils screen with accept and reject buttons

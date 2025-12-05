@@ -24,4 +24,21 @@ class GenieService {
       throw Exception('acceptOrder failed');
     }
   }
+
+  //genie reject order
+  Future rejectOrder(String orderId) async {
+    final userId = await storage.getUserId();
+    final response = await http.post(
+      Uri.parse('${baseUrl}genie/rejectOrder'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'userId': userId, 'orderId': orderId}),
+    );
+
+    if(response.statusCode == 201){
+      final data = jsonDecode(response.body);
+      return data;
+    }else {
+      throw Exception('rejectOrder failed');
+    }
+  }
 }
