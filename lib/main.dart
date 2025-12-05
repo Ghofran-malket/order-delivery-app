@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_notification_screen.dart';
 import 'package:algenie/presentation/screens/splash_screen.dart';
@@ -10,12 +8,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-//   print("Background message: ${message.messageId}");
-// }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Background message: ${message.data}");
+}
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -48,20 +44,36 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("Foreground message: ${message.notification?.title}");
       showModalBottomSheet(
-        context: navigatorKey.currentContext!,
-        isScrollControlled: true,  // important
-        backgroundColor: Colors.transparent,
-        builder: (context) {
-          return FractionallySizedBox(
-            heightFactor: 0.75,
-                child:  OrderNotificationScreen(order:Order.fromFirebaseNotification( message.data),),
-              );
-        });
+          context: navigatorKey.currentContext!,
+          isScrollControlled: true, // important
+          backgroundColor: Colors.transparent,
+          builder: (context) {
+            return FractionallySizedBox(
+              heightFactor: 0.75,
+              child: OrderNotificationScreen(
+                order: Order.fromFirebaseNotification(message.data),
+              ),
+            );
+          });
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print("Opened from notification");
+      showModalBottomSheet(
+        context: navigatorKey.currentContext!,
+        isScrollControlled: true, // important
+        backgroundColor: Colors.transparent,
+        builder: (context) {
+          return FractionallySizedBox(
+            heightFactor: 0.75,
+            child: OrderNotificationScreen(
+              order: Order.fromFirebaseNotification(message.data),
+            ),
+          );
+        });
     });
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
     super.initState();
   }
 
@@ -69,7 +81,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: const Size(360, 690));
     final authProvider = Provider.of<AuthProvider>(context);
-    print("authProvider.isLoggedIn.toString()" +authProvider.isLoggedIn.toString());
+    print("authProvider.isLoggedIn.toString()" +
+        authProvider.isLoggedIn.toString());
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
