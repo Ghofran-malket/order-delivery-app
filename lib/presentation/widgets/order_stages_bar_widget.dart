@@ -1,4 +1,5 @@
 import 'package:algenie/data/models/order_model.dart';
+import 'package:algenie/presentation/screens/chat_screen.dart';
 import 'package:algenie/presentation/screens/genie_screens/report_a_problem_screen.dart';
 import 'package:algenie/presentation/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,17 @@ class OrderStagesBarWidget extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                //Chats
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (context) => ChatScreen(
+                      order: order
+                    ),
+                  ),
+                );
+              },
               child: Stack(
                 children: [
                   SizedBox(

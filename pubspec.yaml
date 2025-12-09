@@ -52,6 +52,8 @@ dependencies:
   firebase_in_app_messaging: ^0.9.0+4
   firebase_app_installations:
   just_audio: ^0.10.5
+  flutter_chat_bubble: ^2.0.2
+  url_launcher: ^6.3.2
 
 
 dev_dependencies:
