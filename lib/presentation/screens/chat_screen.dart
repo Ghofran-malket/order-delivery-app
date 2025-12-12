@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/widgets/message_widget.dart';
 import 'package:algenie/providers/auth_provider.dart';
@@ -23,10 +26,10 @@ class _ChatScreenState extends State<ChatScreen> {
   final SocketService socketService = SocketService();
   final TextEditingController messageController = TextEditingController();
 
-  List messages = [];
+  List<Message> messages = [];
 
   loadMessages(String chatId) async{
-    List msg = await ChatService().getMessages(chatId);
+    List<Message> msg = await ChatService().getMessages(chatId);
     setState(() {
       messages= msg;
     });
@@ -37,8 +40,6 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     //chatId will be the genieId + orderId
     String chatId = widget.order.genieId + widget.order.orderId;
-    print(chatId + 'chatid');
-
     //connect to the socket
     socketService.connect(chatId);
 
@@ -55,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
     //Listen for new messages
     socketService.onMessage((msg) {
       setState(() {
-        messages.add(msg);
+        messages.add(Message.fromJson(msg));
       });
       _scrollToBottom();
     });
@@ -72,15 +73,17 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
 
-  void sendMsg(String senderId) {
+  void sendMsg(String senderId, String receiverId,) {
+    String chatId = widget.order.genieId + widget.order.orderId;
     final text = messageController.text.trim();
     if (text.isEmpty) return;
-    String chatId = widget.order.genieId + widget.order.orderId;
 
+    final message = Message(senderId: senderId, receiverId: receiverId, text: text);
+    
+    
     socketService.sendMessage(
-      chatId,
-      senderId,
-      text,
+      chatId: chatId,
+      message: message
     );
 
     messageController.clear();
@@ -96,6 +99,14 @@ class _ChatScreenState extends State<ChatScreen> {
         );
       }
     });
+  }
+
+  @override
+  void dispose() {
+    socketService.dispose();
+    _scrollController.dispose();
+    messageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -179,10 +190,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                 itemCount: messages.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   final msg = messages[index];
-                                  bool isMe = msg["senderId"] == sender.id;
+                                  bool isMe = msg.senderId == sender.id;
                                   return MessageWidget(
                                           myMessage: isMe,
-                                          message: msg["text"] ?? "",
+                                          message: msg.text,
                                           type: 'message',
                                           receiver: receiver,
                                           orderId: widget.order.orderId
@@ -247,7 +258,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               child: IconButton(
                                 icon: Icon(Icons.send),
                                 color: Color(0xFF252B37),
-                                onPressed: () => sendMsg(sender.id!),
+                                onPressed: () => sendMsg(sender.id!, receiver.id!),
                               ))),
                     ],
                   ),

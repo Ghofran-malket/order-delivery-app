@@ -1,3 +1,4 @@
+import 'package:algenie/data/models/message_model.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'dart:developer';
 
@@ -21,11 +22,13 @@ class SocketService {
     });
   }
 
-  void sendMessage(String chatId, String senderId, String text) {
+  void sendMessage({required String chatId, required Message message}) {
     socket.emit("send_message", {
       "chatId": chatId,
-      "senderId": senderId,
-      "text": text
+      "senderId": message.senderId,
+      "receiverId": message.receiverId,
+      "text": message.text,
+      "type": message.type
     });
   }
 
@@ -33,5 +36,10 @@ class SocketService {
     socket.on("receive_message", (data) {
       callback(data);
     });
+  }
+
+  void dispose() {
+    socket.off("receive_message");
+    socket.dispose();
   }
 }
