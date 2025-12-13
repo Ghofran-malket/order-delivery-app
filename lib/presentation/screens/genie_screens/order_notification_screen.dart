@@ -1,9 +1,11 @@
 import 'dart:developer';
+import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_details-screen.dart';
 import 'package:algenie/presentation/widgets/notification_timer_widget.dart';
 import 'package:algenie/presentation/widgets/primary_button_widget.dart';
 import 'package:algenie/services/genie_services.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:just_audio/just_audio.dart';
@@ -19,6 +21,7 @@ class OrderNotificationScreen extends StatefulWidget {
 class OrderNotificationScreenState extends State<OrderNotificationScreen> {
   final player = AudioPlayer();
   bool clicked = false;
+  late String chatId;
 
   ring() async {
     final navigator = Navigator.of(context);
@@ -37,6 +40,7 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
 
   @override
   void initState() {
+    chatId = widget.order.genieId + widget.order.orderId;
     ring();
     super.initState();
   }
@@ -136,8 +140,10 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
                 title: "let's go",
                 isLoading: clicked,
                 function: () async {
+                  Message message = Message(senderId: widget.order.genieId, receiverId: widget.order.customerId, text: 'Genie accept your order');
                   final navigator = Navigator.of(context);
                   await GenieService().acceptOrder(widget.order.orderId);
+                  SocketService().sendMessage(chatId: chatId, message: message);
                   setState(() {
                     clicked = true;
                   });

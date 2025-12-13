@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/data/models/user_model.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -75,6 +76,7 @@ class AuthService {
       await storage.deleteUserId();
       await storage.deleteUser();
       await generalStorage.deleteAll();
+      SocketService().dispose();
     }catch(e){
       throw Exception(e.toString());
     }

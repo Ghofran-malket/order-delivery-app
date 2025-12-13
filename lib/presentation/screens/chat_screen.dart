@@ -23,7 +23,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _hasCallSupport = false;
-  final SocketService socketService = SocketService();
   final TextEditingController messageController = TextEditingController();
 
   List<Message> messages = [];
@@ -40,9 +39,6 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     //chatId will be the genieId + orderId
     String chatId = widget.order.genieId + widget.order.orderId;
-    //connect to the socket
-    socketService.connect(chatId);
-
     loadMessages(chatId);
     
 
@@ -54,7 +50,8 @@ class _ChatScreenState extends State<ChatScreen> {
     });
 
     //Listen for new messages
-    socketService.onMessage((msg) {
+    SocketService().onMessage((msg) {
+      if (!mounted) return;
       setState(() {
         messages.add(Message.fromJson(msg));
       });
@@ -81,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final message = Message(senderId: senderId, receiverId: receiverId, text: text);
     
     
-    socketService.sendMessage(
+    SocketService().sendMessage(
       chatId: chatId,
       message: message
     );
@@ -103,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
-    socketService.dispose();
+    SocketService().removeListener();
     _scrollController.dispose();
     messageController.dispose();
     super.dispose();

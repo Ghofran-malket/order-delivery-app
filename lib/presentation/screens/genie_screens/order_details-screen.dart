@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/home_screen.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_stages_pageview_screen.dart';
@@ -7,6 +8,7 @@ import 'package:algenie/presentation/widgets/order_timer_widget.dart';
 import 'package:algenie/presentation/widgets/primary_button_widget.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:algenie/services/genie_services.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:algenie/startup_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -157,6 +159,9 @@ class OrderDetailsScreen extends StatelessWidget {
                             function: () async{
                               final navigator = Navigator.of(context);
                               await GenieService().acceptOrder(order.orderId);
+                              Message message = Message(senderId: order.genieId, receiverId: order.customerId, text: 'Genie accept your order');
+                              String chatId = order.genieId + order.orderId;
+                              SocketService().sendMessage(chatId: chatId, message: message);
                               navigator.popUntil((route) => route.isFirst);
                               navigator.push(
                                   MaterialPageRoute<void>(
