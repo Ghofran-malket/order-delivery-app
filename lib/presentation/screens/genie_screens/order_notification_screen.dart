@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:algenie/core/constants/app_constants.dart';
 import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_details-screen.dart';
@@ -21,7 +22,6 @@ class OrderNotificationScreen extends StatefulWidget {
 class OrderNotificationScreenState extends State<OrderNotificationScreen> {
   final player = AudioPlayer();
   bool clicked = false;
-  late String chatId;
 
   ring() async {
     final navigator = Navigator.of(context);
@@ -40,7 +40,6 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
 
   @override
   void initState() {
-    chatId = widget.order.genieId + widget.order.orderId;
     ring();
     super.initState();
   }
@@ -143,7 +142,7 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
                   Message message = Message(senderId: widget.order.genieId, receiverId: widget.order.customerId, text: 'Genie accept your order');
                   final navigator = Navigator.of(context);
                   await GenieService().acceptOrder(widget.order.orderId);
-                  SocketService().sendMessage(chatId: chatId, message: message);
+                  SocketService().sendMessage(chatId: ChatId, message: message);
                   setState(() {
                     clicked = true;
                   });

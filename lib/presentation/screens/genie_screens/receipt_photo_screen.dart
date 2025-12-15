@@ -1,5 +1,8 @@
+import 'package:algenie/core/constants/app_constants.dart';
+import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/customer_location_screen.dart';
 import 'package:algenie/services/api_service.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -233,6 +236,10 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                           label: "Done",
                           onAction: () async {
                             final navigator = Navigator.of(context);
+                            //send msg to customer 
+                            Message message = Message(senderId: widget.order.genieId, receiverId: widget.order.customerId, 
+                              text: 'A photo of the receipt will be sent to you.');
+                            SocketService().sendMessage(chatId: ChatId, message: message);
                             //update store status to done
                             await OrderApiService().updateStoreStatus(widget.order.orderId, widget.store.id);
                             //update the order receipt value field to the sum of the old value and the receiptController value

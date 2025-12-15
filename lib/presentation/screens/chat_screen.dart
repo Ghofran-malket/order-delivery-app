@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:algenie/core/constants/app_constants.dart';
 import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/widgets/message_widget.dart';
@@ -38,8 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     //chatId will be the genieId + orderId
-    String chatId = widget.order.genieId + widget.order.orderId;
-    loadMessages(chatId);
+    loadMessages(ChatId);
     
 
     // Check for phone call support.
@@ -71,7 +71,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
 
   void sendMsg(String senderId, String receiverId,) {
-    String chatId = widget.order.genieId + widget.order.orderId;
     final text = messageController.text.trim();
     if (text.isEmpty) return;
 
@@ -79,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
     
     
     SocketService().sendMessage(
-      chatId: chatId,
+      chatId: ChatId,
       message: message
     );
 

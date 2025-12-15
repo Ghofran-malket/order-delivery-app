@@ -1,9 +1,12 @@
+import 'package:algenie/core/constants/app_constants.dart';
+import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/deliver_to_customer_screen.dart';
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/order_timer_widget.dart';
 import 'package:algenie/presentation/widgets/slider_button_widget.dart';
 import 'package:algenie/services/api_service.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -78,7 +81,9 @@ class CustomerLocationScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () async {
-                    
+                    Message message = Message(senderId: order.genieId, receiverId: order.customerId, 
+                      text: 'The genie is on the way and will arrive soon.');
+                    SocketService().sendMessage(chatId: ChatId, message: message);
                   },
                   child: Text(
                     "Navigate",
@@ -156,6 +161,9 @@ class CustomerLocationScreen extends StatelessWidget {
                     onAction: () async{
                       final navigator = Navigator.of(context);
                       await AuthService().updateGenieProgress(orderId: order.orderId, step: 'deliverToCustomer');
+                      Message message = Message(senderId: order.genieId, receiverId: order.customerId, 
+                        text: 'The genie has arrived.');
+                      SocketService().sendMessage(chatId: ChatId, message: message);
                       navigator.push(
                           MaterialPageRoute(
                             builder: (context) => DeliverToCustomerScreen(
