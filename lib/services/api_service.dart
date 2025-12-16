@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/data/models/user_model.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -24,10 +25,10 @@ class AuthService {
     if(response.statusCode == 200){
       final data = jsonDecode(response.body);
       await storage.saveToken(data['token']);
-      await storage.saveUserId(data['id']);
+      await storage.saveUserId(data['_id']);
       await storage.saveUser(User.fromJson(data));
       if(data['role'] == 'genie'){
-        await isOnline(data['id']);
+        await isOnline(data['_id']);
       }
       return User.fromJson(data);
     }else {
@@ -59,7 +60,7 @@ class AuthService {
     if(response.statusCode == 201){
       final data = jsonDecode(response.body);
       await storage.saveToken(data['token']);
-      await storage.saveUserId(data['id']);
+      await storage.saveUserId(data['_id']);
       await storage.saveUser(User.fromJson(data));
       return User.fromJson(data);
     }else {
@@ -75,6 +76,7 @@ class AuthService {
       await storage.deleteUserId();
       await storage.deleteUser();
       await generalStorage.deleteAll();
+      SocketService().dispose();
     }catch(e){
       throw Exception(e.toString());
     }

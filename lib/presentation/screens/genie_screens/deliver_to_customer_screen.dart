@@ -1,9 +1,12 @@
+import 'package:algenie/core/constants/app_constants.dart';
+import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/rate_screen.dart';
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/slider_button_widget.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:algenie/services/order_api_services.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -154,6 +157,9 @@ class _DeliverToCustomerScreenState extends State<DeliverToCustomerScreen> {
                       //await OrderApiService().updateOrderStatus(widget.order.orderId, "delivered");
                       //if okay then go to rate a customer screen
                       await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'rate');
+                      Message message = Message(senderId: widget.order.genieId, receiverId: widget.order.customerId, 
+                        text: 'Your order has been delivered.');
+                      SocketService().sendMessage(chatId: ChatId, message: message);
                       navigator.push(
                         MaterialPageRoute<void>(
                           builder: (context) => RateScreen(

@@ -1,3 +1,5 @@
+import 'package:algenie/core/constants/app_constants.dart';
+import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/data/models/store_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_stages_base_screen.dart';
@@ -5,6 +7,7 @@ import 'package:algenie/presentation/screens/genie_screens/receipt_photo_screen.
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/order_timer_widget.dart';
 import 'package:algenie/services/api_service.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -35,12 +38,21 @@ void initState() {
     print("page number ${_pageController.page}");
     if (_pageController.page == 0) {
       await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'arriveToStore', storeIndex: widget.storeIndex);
+      Message message = Message(senderId: widget.order.genieId, receiverId: widget.order.customerId, 
+        text: 'The genie is on the way to the ${widget.store.name} to get your items.');
+      SocketService().sendMessage(chatId: ChatId, message: message);
     }
     if (_pageController.page == 1) {
       await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'pickUpDone', storeIndex: widget.storeIndex);
+      Message message = Message(senderId: widget.order.genieId, receiverId: widget.order.customerId, 
+        text: 'The genie has arrived at the ${widget.store.name}');
+      SocketService().sendMessage(chatId: ChatId, message: message);
     }
     if (_pageController.page == 2) {
       await AuthService().updateGenieProgress(orderId: widget.order.orderId, step: 'receiptPhoto', storeIndex: widget.storeIndex);
+      Message message = Message(senderId: widget.order.genieId, receiverId: widget.order.customerId, 
+        text: 'Item pickup is complete.');
+      SocketService().sendMessage(chatId: ChatId, message: message);
       navigator.push(
         MaterialPageRoute<void>(
           builder: (context) => ReceiptPhotoScreen(

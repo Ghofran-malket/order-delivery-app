@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:algenie/core/constants/app_constants.dart';
+import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/home_screen.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_stages_pageview_screen.dart';
@@ -7,6 +9,7 @@ import 'package:algenie/presentation/widgets/order_timer_widget.dart';
 import 'package:algenie/presentation/widgets/primary_button_widget.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:algenie/services/genie_services.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:algenie/startup_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -157,6 +160,8 @@ class OrderDetailsScreen extends StatelessWidget {
                             function: () async{
                               final navigator = Navigator.of(context);
                               await GenieService().acceptOrder(order.orderId);
+                              Message message = Message(senderId: order.genieId, receiverId: order.customerId, text: 'Genie accept your order');
+                              SocketService().sendMessage(chatId: ChatId, message: message);
                               navigator.popUntil((route) => route.isFirst);
                               navigator.push(
                                   MaterialPageRoute<void>(
@@ -308,6 +313,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                     if(order.stores[index].storeStatus != "done"){
                                       await AuthService().updateGenieProgress(orderId: order.orderId, 
                                             step: 'goToStore', storeIndex: index);
+                                      Message message = Message(senderId: order.genieId, receiverId: order.customerId, text: 'The genie is currently checking the ${order.stores[index].name} for the items you requested.');
+                                      SocketService().sendMessage(chatId: ChatId, message: message);
                                       navigator.push(
                                         MaterialPageRoute(
                                           builder: (context) => OrderStagesPageviewScreen(

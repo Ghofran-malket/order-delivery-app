@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:algenie/core/constants/app_constants.dart';
+import 'package:algenie/services/socket_services.dart';
 import 'package:algenie/utils/auth_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +21,11 @@ class GenieService {
 
     if(response.statusCode == 200){
       final data = jsonDecode(response.body);
+
+      //initilize the socket after the genie goes online to make hime able to send and receive msg from/to customer
+      final socketService = SocketService();
+      ChatId = userId! + orderId;
+      socketService.init(ChatId);
       return data;
     }else {
       throw Exception('acceptOrder failed');
