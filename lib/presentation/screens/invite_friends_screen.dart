@@ -40,15 +40,9 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                       child: Text(
                         "Invite Your Friends",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     ),
-                    //Image.asset(ImageConfig.logoCircle)
                   ],
                 ),
               ),
@@ -64,12 +58,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                       Text(
                         "Invite a friend and earn a ",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       SizedBox(
                         width: 2,
@@ -77,12 +66,7 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                       Text(
                         "10\$",
                         textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600)                        
                       )
                     ],
                   )),
@@ -134,23 +118,13 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                           children: <Widget>[
                             Text(
                               "Your Referral Link Is",
-                              style: TextStyle(
-                                fontFamily: "Poppin-semibold",
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
                         ),
                         Text(
                           "algenie/referralLink",
-                          style: TextStyle(
-                            fontFamily: "Poppin-semibold",
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFFED1B24),
-                          ),
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Color(0xFFED1B24))
                         )
                       ],
                     )),
@@ -181,19 +155,15 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
                     );
                   },
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 22, horizontal: 17),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 17),
                     child: Center(
                       child: Text(
                         "Skip",
-                        style: TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFFAB2929),
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Color(0xFFAB2929), fontWeight: FontWeight.bold)
                       ),
                     ),
-                  ))
+                  )),
+                SizedBox(height: ScreenUtil().setHeight(15),)
             ],
           ),
         ),

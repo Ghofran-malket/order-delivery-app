@@ -59,11 +59,7 @@ class _CountdownTimerWidgetState extends State<CountdownTimerWidget> {
         child: Text(
           formatTime(_remainingSeconds),
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: "Poppins-Medium",
-            fontSize: ScreenUtil().setSp(20),
-            color: Colors.white,
-          ),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(color:Colors.white),
         ),
       ),
     );

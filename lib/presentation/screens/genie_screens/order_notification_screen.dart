@@ -88,7 +88,6 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
             Spacer(),
             Padding(
               padding: EdgeInsets.only(
-                //top: ScreenUtil().setHeight(38),
                 left: ScreenUtil().setWidth(15),
                 right: ScreenUtil().setWidth(15),
               ),
@@ -103,13 +102,11 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
               ),
             ),
             SizedBox(height: ScreenUtil().setHeight(6)),
-            Text("10 Minutes Away",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: "Poppins-Medium",
-                  //fontSize: ScreenUtil().setHeight(17),
-                  color: Color(0xFF858585),
-                )),
+            Text(
+              "10 Minutes Away",
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Color(0xFF858585))
+            ),
             SizedBox(
               height: ScreenUtil().setHeight(5),
             ),
@@ -117,20 +114,16 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 //order.chargeService}
-                Text("50\$ ",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontFamily: "poppin-semibold",
-                      //fontSize: 22,
-                      color: Color(0xFFAB2929),
-                    )),
-                Text(" Estimated Total",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontFamily: "Poppins-Medium",
-                      //fontSize: ScreenUtil().setHeight(16),
-                      color: Colors.black,
-                    )),
+                Text(
+                  "50\$ ",
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Color(0xFFAB2929))
+                ),
+                Text(
+                  " Estimated Total",
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.titleMedium
+                )
               ],
             ),
             Spacer(),
@@ -169,11 +162,7 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
                   child: Text(
                     "Reject",
                     textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontFamily: "poppin-semibold",
-                      //fontSize: ScreenUtil().setSp(16),
-                      color: Color(0xFFAB2929),
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Color(0xFFAB2929),)
                   ),
                 ),
                 InkWell(
@@ -195,11 +184,7 @@ class OrderNotificationScreenState extends State<OrderNotificationScreen> {
                     "More details ...",
                     textAlign: TextAlign.left,
                     softWrap: true,
-                    style: TextStyle(
-                      fontFamily: "poppin-semibold",
-                      //fontSize: ScreenUtil().setSp(16),
-                      // color: Config.primaryColor,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall
                   ),
                 ),
               ],

@@ -63,7 +63,10 @@ class _AnimatedDropdownState extends State<AnimatedDropdown> {
                 ),
                 Expanded(child: Padding(
                   padding: const EdgeInsets.only(left: 10),
-                  child: Text(_selectedItem),
+                  child: Text(
+                    _selectedItem,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
                 )),
                 Icon(_isExpanded
                     ? Icons.keyboard_arrow_up

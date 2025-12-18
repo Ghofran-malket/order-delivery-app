@@ -57,12 +57,18 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
             children: [
               ListTile(
                 leading: Icon(Icons.camera_alt),
-                title: Text('Take a photo'),
+                title: Text(
+                  'Take a photo',
+                  style: Theme.of(context).textTheme.bodyMedium
+                ),
                 onTap: () => Navigator.pop(context, ImageSource.camera),
               ),
               ListTile(
                 leading: Icon(Icons.photo_library),
-                title: Text('Choose from gallery'),
+                title: Text(
+                  'Choose from gallery',
+                  style: Theme.of(context).textTheme.bodyMedium
+                ),
                 onTap: () => Navigator.pop(context, ImageSource.gallery),
               ),
             ],
@@ -115,11 +121,7 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
             Center(
               child: Text(
                 "Receipt from ${widget.store.name}",
-                style: TextStyle(
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 20,
-                  color: Color(0xFF000000),
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
 
@@ -179,12 +181,7 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
                     child: Center(
                         child: Text(
                       "Retake reciept photo",
-                      style: TextStyle(
-                        fontFamily: "Poppin-semibold",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFFAB2929),
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Color(0xFFAB2929), fontWeight: FontWeight.bold)
                     )),
                   ),
                   SizedBox(height: ScreenUtil().setHeight(10)),
@@ -278,11 +275,7 @@ class _ReceiptPhotoScreenScreenState extends State<ReceiptPhotoScreen> {
   Widget emptyField() {
     return Text(
       "Please fill this field it can't be empty..",
-      style: TextStyle(
-        fontFamily: "Poppins-Medium",
-        fontSize: ScreenUtil().setSp(13),
-        color: Colors.red,
-      ),
+      style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFFAB2929))
     );
   }
 }

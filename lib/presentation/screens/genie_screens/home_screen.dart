@@ -62,14 +62,64 @@ class _GenieHomeState extends State<GenieHome> {
         child: Scaffold(
             key: scaffoldKey,
             drawer: GenieDrawer(),
-            body: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/influencer1.png'),
-                        fit: BoxFit.cover)),
-                child: SlidingUpPanel(
-                    panel: show
-                        ? loading
+            body: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: const AssetImage('assets/background.jpg',),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                ),
+                Container(        
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: const AssetImage('assets/bg-genie.png',),
+                        fit: BoxFit.contain,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                    child: SlidingUpPanel(
+                        panel: show
+                            ? loading
+                                ? Center(
+                                    child: SpinKitThreeBounce(
+                                      color: Color(0xFFAB2929),
+                                      size: 30,
+                                    ),
+                                  )
+                                : auth.isOnline!
+                                    ? _goOfflineWidget(context)
+                                    : _buildGoOnlineBar()
+                            : Container(),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromRGBO(0, 0, 0, 0.16),
+                            offset: Offset(
+                              0.0,
+                              ScreenUtil().setWidth(-2.0),
+                            ), //(x,y)
+                            blurRadius: ScreenUtil().setWidth(6.0),
+                          ),
+                        ],
+                        onPanelOpened: () {
+                          setState(() {
+                            show = true;
+                          });
+                        },
+                        onPanelClosed: () {
+                          setState(() {
+                            show = false;
+                          });
+                        },
+                        minHeight: ScreenUtil().setHeight(90), //146
+                        maxHeight: ScreenUtil().setHeight(190), //246
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(ScreenUtil().setWidth(11)),
+                            topLeft: Radius.circular(ScreenUtil().setWidth(11))),
+                        collapsed: loading
                             ? Center(
                                 child: SpinKitThreeBounce(
                                   color: Color(0xFFAB2929),
@@ -77,197 +127,148 @@ class _GenieHomeState extends State<GenieHome> {
                                 ),
                               )
                             : auth.isOnline!
-                                ? _goOfflineWidget(context)
-                                : _buildGoOnlineBar()
-                        : Container(),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color.fromRGBO(0, 0, 0, 0.16),
-                        offset: Offset(
-                          0.0,
-                          ScreenUtil().setWidth(-2.0),
-                        ), //(x,y)
-                        blurRadius: ScreenUtil().setWidth(6.0),
-                      ),
-                    ],
-                    onPanelOpened: () {
-                      setState(() {
-                        show = true;
-                      });
-                    },
-                    onPanelClosed: () {
-                      setState(() {
-                        show = false;
-                      });
-                    },
-                    minHeight: ScreenUtil().setHeight(90), //146
-                    maxHeight: ScreenUtil().setHeight(190), //246
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(ScreenUtil().setWidth(11)),
-                        topLeft: Radius.circular(ScreenUtil().setWidth(11))),
-                    collapsed: loading
-                        ? Center(
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFFAB2929),
-                              size: 30,
-                            ),
-                          )
-                        : auth.isOnline!
-                            ? Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: ScreenUtil().setWidth(20)),
-                                child: Column(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top: ScreenUtil().setHeight(1.5),
-                                          bottom: ScreenUtil().setHeight(29.5)),
-                                      child: SizedBox(
-                                        height: ScreenUtil().setHeight(2.0),
-                                        width: ScreenUtil().setWidth(43),
-                                        child: DecoratedBox(
-                                          decoration: BoxDecoration(
-                                              color: Color(0xFFC4C4C4)),
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                ? Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: ScreenUtil().setWidth(20)),
+                                    child: Column(
                                       children: <Widget>[
-                                        Icon(
-                                          Icons.keyboard_arrow_up,
-                                          color: Color(
-                                              0xFFED1B24), //AnimatedTextKit FadeAnimatedText
-                                          size: 40,
-                                        ),
-                                        Expanded(
-                                          child: AnimatedTextKit(
-                                            animatedTexts: [
-                                              FadeAnimatedText(
-                                                "looking for customers",
-                                                textStyle: const TextStyle(
-                                                  fontFamily: "Poppin-semibold",
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.black,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              FadeAnimatedText(
-                                                "You are online in collapsed",
-                                                textStyle: const TextStyle(
-                                                  fontFamily: "Poppin-semibold",
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.black,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ],
-                                            repeatForever: true,
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: ScreenUtil().setHeight(1.5),
+                                              bottom: ScreenUtil().setHeight(29.5)),
+                                          child: SizedBox(
+                                            height: ScreenUtil().setHeight(2.0),
+                                            width: ScreenUtil().setWidth(43),
+                                            child: DecoratedBox(
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xFFC4C4C4)),
+                                            ),
                                           ),
                                         ),
-                                        Center(
-                                            child: Image.asset(
-                                          'assets/look-for.png',
-                                          width: ScreenUtil().setWidth(48),
-                                          height: ScreenUtil().setHeight(48),
-                                        ))
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.keyboard_arrow_up,
+                                              color: Color(
+                                                  0xFFED1B24), //AnimatedTextKit FadeAnimatedText
+                                              size: 40,
+                                            ),
+                                            Expanded(
+                                              child: AnimatedTextKit(
+                                                animatedTexts: [
+                                                  FadeAnimatedText(
+                                                    "looking for customers",
+                                                    textStyle: Theme.of(context).textTheme.titleMedium,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  FadeAnimatedText(
+                                                    "You are online in collapsed",
+                                                    textStyle: Theme.of(context).textTheme.titleMedium,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
+                                                repeatForever: true,
+                                              ),
+                                            ),
+                                            Center(
+                                                child: Image.asset(
+                                              'assets/look-for.png',
+                                              width: ScreenUtil().setWidth(48),
+                                              height: ScreenUtil().setHeight(48),
+                                            ))
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              )
-                            : _buildGoOnlineBar(),
-                    body: Stack(children: [
-                      Positioned(
-                        top: ScreenUtil().setHeight(50),
-                        right: ScreenUtil().setWidth(17),
-                        left: ScreenUtil().setWidth(17),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            InkWell(
-                              onTap: () {
-                                scaffoldKey.currentState!.openDrawer();
-                              },
-                              child: Container(
-                                width: ScreenUtil().setWidth(33),
-                                height: ScreenUtil().setWidth(33),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(
-                                    ScreenUtil().setWidth(19),
-                                  )),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          const Color.fromRGBO(0, 0, 0, 0.12),
-                                      offset: Offset(
-                                        0.0,
-                                        ScreenUtil().setWidth(3.0),
-                                      ), //(x,y)
-                                      blurRadius: ScreenUtil().setWidth(6.0),
+                                  )
+                                : _buildGoOnlineBar(),
+                        body: Stack(children: [
+                          Positioned(
+                            top: ScreenUtil().setHeight(50),
+                            right: ScreenUtil().setWidth(17),
+                            left: ScreenUtil().setWidth(17),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: () {
+                                    scaffoldKey.currentState!.openDrawer();
+                                  },
+                                  child: Container(
+                                    width: ScreenUtil().setWidth(33),
+                                    height: ScreenUtil().setWidth(33),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(
+                                        ScreenUtil().setWidth(19),
+                                      )),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              const Color.fromRGBO(0, 0, 0, 0.12),
+                                          offset: Offset(
+                                            0.0,
+                                            ScreenUtil().setWidth(3.0),
+                                          ), //(x,y)
+                                          blurRadius: ScreenUtil().setWidth(6.0),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                    padding:
+                                        EdgeInsets.all(ScreenUtil().setWidth(5)),
+                                    child: Image.asset('assets/group55.png'),
+                                  ),
                                 ),
-                                padding:
-                                    EdgeInsets.all(ScreenUtil().setWidth(5)),
-                                child: Image.asset('assets/group55.png'),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () async {},
-                              child: const Text(
-                                'Enjoy your offers',
-                                style: TextStyle(
-                                  fontFamily: "Poppin-semibold",
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                InkWell(
+                                  onTap: () async {},
+                                  child: Text(
+                                    'Enjoy your offers',
+                                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.white),
+                                  ),
                                 ),
-                              ),
+                                Builder(
+                                  builder: (context) => (InkWell(
+                                      onTap: () {},
+                                      child: Image.asset('assets/alert.png',
+                                          width: ScreenUtil().setWidth(30),
+                                          height: ScreenUtil().setHeight(30)))),
+                                )
+                              ],
                             ),
-                            Builder(
-                              builder: (context) => (InkWell(
-                                  onTap: () {},
-                                  child: Image.asset('assets/alert.png',
-                                      width: ScreenUtil().setWidth(30),
-                                      height: ScreenUtil().setHeight(30)))),
-                            )
-                          ],
-                        ),
-                      ),
-                      !auth.isOnline!
-                          ? Container()
-                          : widget.order != null ? Positioned(
-                              top: ScreenUtil().setHeight(100),
-                              right: ScreenUtil().setWidth(5),
-                              left: ScreenUtil().setWidth(5),
-                              child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ScreenUtil().setWidth(17)),
-                                      child: InkWell(
-                                          onTap: () async {
-                                            final navigator = Navigator.of(context);
-                                            await AuthService().updateGenieProgress(orderId: widget.order!.orderId, 
-                                            step: 'orderDetails');
-                                            navigator.push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      OrderDetailsScreen(
-                                                          order: widget.order!)),
-                                            );
-                                          },
-                                          child: OrderCardWidget(
-                                              order: widget.order!))),
-                            ) : Container()
-                    ])))));
+                          ),
+                          !auth.isOnline!
+                              ? Container()
+                              : widget.order != null ? Positioned(
+                                  top: ScreenUtil().setHeight(100),
+                                  right: ScreenUtil().setWidth(5),
+                                  left: ScreenUtil().setWidth(5),
+                                  child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  ScreenUtil().setWidth(17)),
+                                          child: InkWell(
+                                              onTap: () async {
+                                                final navigator = Navigator.of(context);
+                                                await AuthService().updateGenieProgress(orderId: widget.order!.orderId, 
+                                                step: 'orderDetails');
+                                                navigator.push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          OrderDetailsScreen(
+                                                              order: widget.order!)),
+                                                );
+                                              },
+                                              child: OrderCardWidget(
+                                                  order: widget.order!))),
+                                ) : Container()
+                        ]))),
+              ],
+            )));
   }
 
   Column _goOfflineWidget(BuildContext context) {
@@ -287,12 +288,7 @@ class _GenieHomeState extends State<GenieHome> {
         ),
         Text(
           "You Are Online",
-          style: const TextStyle(
-            fontFamily: "Poppin-semibold",
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-          ),
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -310,12 +306,7 @@ class _GenieHomeState extends State<GenieHome> {
         ),
         Text(
           "Go Offline",
-          style: const TextStyle(
-            fontFamily: "Poppin-semibold",
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-          ),
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ],
     );
@@ -362,12 +353,7 @@ class _GenieHomeState extends State<GenieHome> {
               children: <Widget>[
                 Text(
                   "You Are Offline",
-                  style: const TextStyle(
-                    fontFamily: "Poppin-semibold",
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 InkWell(
                   onTap: () async {
@@ -416,12 +402,7 @@ class _GenieHomeState extends State<GenieHome> {
                         ),
                         Text(
                           "Go Online",
-                          style: TextStyle(
-                            fontFamily: "Poppin-semibold",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFAB2929),
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Color(0xFFAB2929)),
                         )
                       ],
                     ),

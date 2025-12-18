@@ -56,24 +56,20 @@ class _DeliverToCustomerScreenState extends State<DeliverToCustomerScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Finish",
-                    style: TextStyle(
-                      fontFamily: "Poppins-Medium",
-                      fontSize: 20,
-                      color: Color(0xFF000000),
-                    ),
+                    "Finish the order",
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
 
-                  Text(
-                    "widget.order.couponCode" == ""
-                        ? "Amount Duo: ${widget.order.totalReceiptValue}"
-                        : "Amount Duo: AfterDiscount",
-                    style: TextStyle(
-                      fontFamily: "Poppins-Medium",
-                      fontSize: ScreenUtil().setSp(15),
-                      color: Color(0xFF252B37),
-                    ),
-                  ),
+                  // Text(
+                  //   "widget.order.couponCode" == ""
+                  //       ? "Amount Duo: ${widget.order.totalReceiptValue}"
+                  //       : "Amount Duo: AfterDiscount",
+                  //   style: TextStyle(
+                  //     fontFamily: "Poppins-Medium",
+                  //     fontSize: ScreenUtil().setSp(15),
+                  //     color: Color(0xFF252B37),
+                  //   ),
+                  // ),
 
                   SizedBox(height: ScreenUtil().setHeight(40)),
 
@@ -87,11 +83,7 @@ class _DeliverToCustomerScreenState extends State<DeliverToCustomerScreen> {
 
                   "couponCode is not null" == "couponCode is not null" ? Text(
                       "The remaining amount will be transferred to your wallet",
-                      style: TextStyle(
-                        fontFamily: "Poppins-Medium",
-                        fontSize: ScreenUtil().setSp(15),
-                        color: Color(0xFF252B37),
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFF252B37),),
                       textAlign: TextAlign.center,
                     ) : Container(),
                 
@@ -136,12 +128,7 @@ class _DeliverToCustomerScreenState extends State<DeliverToCustomerScreen> {
                         Expanded(
                           child: Text(
                             "I confirm that I received the amount from customer",
-                            style: const TextStyle(
-                              fontFamily: "Poppin-semibold",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
+                            style: Theme.of(context).textTheme.titleMedium
                           ),
                         )
                       ],

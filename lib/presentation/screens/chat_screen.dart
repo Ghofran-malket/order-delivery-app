@@ -119,11 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
             title: Text(
               receiver.name,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: "poppin-semibold",
-                fontSize: 20,
-                color: Color(0xFF252B37),
-              ),
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Color(0xFF252B37))
             ),
             leading: IconButton(
               icon: Icon(Icons.keyboard_arrow_left),
@@ -224,7 +220,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: TextFormField(
                             autofocus: false,
                             controller: messageController,
-                            style: TextStyle(color: Colors.white),
+                            style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Colors.white),
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Write a Message ...",

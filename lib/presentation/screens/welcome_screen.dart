@@ -1,4 +1,5 @@
 import 'package:algenie/presentation/screens/auth/login_screen.dart';
+import 'package:algenie/presentation/screens/customer_screens/customer-home.dart';
 import 'package:algenie/presentation/widgets/container_background_image_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -16,17 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
     final sizeAware = MediaQuery.of(context).size;
 
-    return WillPopScope(
-      onWillPop: () async {
-        if('cameFrom' == 'SelectLanguage'){
-          Navigator.pop(context);
-          return true;
-        }else{
-          return false;
-        }
-          
-      },
-      child: Scaffold(
+    return Scaffold(
         body: ContainerBackgroundImage(
           child: ListView(
             children: <Widget>[
@@ -34,7 +25,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) => const CustomerHomeScreen(),
+                    ),
+                  );
                 },
                 child: Center(
                   child: Container(
@@ -57,7 +53,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       children: <Widget>[
                         SizedBox(height: 20),
                         Image.asset(
-                          'assets/icon1.jpg',
+                          'assets/customer.png',
                           height:140,
                           width: 248,
                         ),
@@ -66,12 +62,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           padding:  EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
                             "Continue as Customer",
-                            style: TextStyle(
-                              fontFamily: "Poppin-semibold",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ),
                         Padding(
@@ -82,13 +73,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             bottom: 19,
                           ),
                           child: Text(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliquaUt enim ad minim veniam",
-                            style: TextStyle(
-                              fontFamily: "Poppin-semibold",
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                            "Order what you need and follow your delivery live.",
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
                       ],
@@ -130,21 +116,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       children: <Widget>[
                         SizedBox(height: 20),
                         Image.asset(
-                          'assets/icon2.jpg',
+                          'assets/genie.png',
                           height:140,
                           width: 176,
+                          
                         ),
                         SizedBox(height: 50),
                         Padding(
                           padding:  EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
                                 "Continue as Genie",
-                                style: TextStyle(
-                                  fontFamily: "Poppin-semibold",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                             
                         ),
@@ -156,13 +138,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             bottom: 19,
                           ),
                           child: Text(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliquaUt enim ad minim veniam",
-                            style: TextStyle(
-                              fontFamily: "Poppin-semibold",
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                            "Help customers by shopping and delivering their orders.",
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ),
                       ],
@@ -173,7 +150,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ],
           ),
         ),
-      ),
     );
   }
 }

@@ -40,12 +40,7 @@ class OrderCardWidget extends StatelessWidget {
                   padding: EdgeInsets.only(left: ScreenUtil().setWidth(12.7)),
                   child: Text(
                     "Customer: ${order.customerId}",
-                    style: const TextStyle(
-                      fontFamily: "Poppin-semibold",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ),
               ],
@@ -62,32 +57,17 @@ class OrderCardWidget extends StatelessWidget {
               children: [
                 Text(
                   intl.DateFormat("EEEE, yyyy-MM-dd").format(order.createdAt!),
-                  style: const TextStyle(
-                    fontFamily: "Poppin-semibold",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12),
                 ),
                 const Spacer(),
                 Text(
                   "At",
-                  style: const TextStyle(
-                    fontFamily: "Poppin-semibold",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12),
                 ),
                 const SizedBox(width:10),
                 Text(
                   intl.DateFormat("h:mm a").format(order.createdAt!),
-                  style: const TextStyle(
-                    fontFamily: "Poppin-semibold",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 3 -
@@ -114,7 +94,7 @@ class OrderCardWidget extends StatelessWidget {
                       child: Text(
                         //'${order.chargeService}\$',
                         "52",
-                        style: const TextStyle(color: Colors.white),
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12, color: Colors.white),
                       ),
                     ),
                   ),
@@ -125,12 +105,7 @@ class OrderCardWidget extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'more details ',
-                style: TextStyle(
-                  fontFamily: "Poppin-semibold",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFFAB2929),
-                ),
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(fontSize: 12, color: Color(0xFFAB2929)),
               ),
             ),
           ],

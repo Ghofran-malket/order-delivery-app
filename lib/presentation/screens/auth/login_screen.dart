@@ -106,12 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           vertical: ScreenUtil().setHeight(15)),
                       child: Text(
                         "Welcome back, Glad to see you again",
-                        style: const TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
 
@@ -123,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           hint: 'Email',
                           controller: emailController,
                           icon: Icons.email,
+                          keyboardType: TextInputType.emailAddress
                         )),
 
                     // password text field
@@ -148,13 +144,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     Center(
                         child: Text(
                       "Don't Have an Account?",
-                      style: TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey //HexColor('#999999'),
-                          ),
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.grey),
                     )),
+                    
+                    SizedBox(height: ScreenUtil().setHeight(10)),
 
                     Center(
                       child: InkWell(
@@ -169,12 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           "Register Now",
                           textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontFamily: "Poppin-semibold",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFFAB2929),
-                          ),
+                          style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Color(0xFFAB2929)),
                         ),
                       ),
                     ),
@@ -196,11 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Center(
           child: Text(
         "Account doesn't Exist please Register",
-        style: const TextStyle(
-          fontFamily: "Poppins-Medium",
-          fontSize: 15,
-          // color: HexColor("#252B37"),
-        ),
+        style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFFAB2929))
       )),
     );
   }

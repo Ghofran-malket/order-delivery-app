@@ -29,11 +29,7 @@ class OrderStagesBaseScreen extends StatelessWidget {
             Center(
               child: Text(
                 "$title ${store.name}",
-                style: TextStyle(
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 20,
-                  color: Color(0xFF000000),
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
 
@@ -59,9 +55,7 @@ class OrderStagesBaseScreen extends StatelessWidget {
                   height: ScreenUtil().setHeight(200),
                   width: ScreenUtil().setWidth(340),
                   padding: EdgeInsets.all(20),
-                  child: store.location == null
-                      ? Center(child:Text("Google map here shows store's location but the location is null", style: TextStyle(color:Colors.white),))
-                      : Center(child:Text("Google map here shows store's location", style: TextStyle(color:Colors.white)))
+                  child: Center(child:Text(store.location == null ? "Google map here shows store's location but the location is null" : "Google map here shows store's location", style: Theme.of(context).textTheme.bodyMedium!.copyWith(color:Colors.white),))
             ) : SizedBox(height: ScreenUtil().setHeight(30),),
         
             SizedBox(height: ScreenUtil().setHeight(17),),
@@ -97,19 +91,11 @@ class OrderStagesBaseScreen extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             store.items[index].title,
-                            style: TextStyle(
-                              fontFamily: "Poppins-Medium",
-                              fontSize: 12,
-                              color: Color(0xFF252B37),
-                            ),
+                            style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFF252B37),),
                           ),
                           Text(
                             store.items[index].quantity,
-                            style: TextStyle(
-                              fontFamily: "Poppins-Medium",
-                              fontSize: 12,
-                              color: Color(0xFf252B37),
-                            ),
+                            style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFF252B37),),
                           ),
                         ],
                       );
@@ -122,7 +108,7 @@ class OrderStagesBaseScreen extends StatelessWidget {
             //button
             SliderButtonWidget(
               label: buttonLabel,
-              onAction: onAction!
+              onAction: onAction
             ),
         
             SizedBox(height: ScreenUtil().setHeight(30)),

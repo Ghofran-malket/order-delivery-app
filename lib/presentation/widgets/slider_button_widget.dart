@@ -16,9 +16,7 @@ class SliderButtonWidget extends StatelessWidget {
           child: Directionality(
                 textDirection: TextDirection.ltr,
                 child: SliderButton(
-                  action: () async {
-                    onAction();
-                  },
+                  action: () async => onAction(),
                   alignLabel: Alignment.center,
                   backgroundColor: Color(0xFFAB2929),
                   shimmer: false,
@@ -29,12 +27,7 @@ class SliderButtonWidget extends StatelessWidget {
                   baseColor: Color(0xFFAB2929),
                   label: Text(
                     label,
-                    style: TextStyle(
-                      fontFamily: "Poppin-semibold",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
                   ),
                   icon: const Center(
                     child: Icon(

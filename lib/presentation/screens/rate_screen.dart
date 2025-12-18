@@ -47,11 +47,8 @@ class _RateScreenState extends State<RateScreen> {
                       Expanded(
                         child: Text(
                           "Review Customer by Pressing Like or Dislike",
-                          style: TextStyle(
-                            fontFamily: "Poppins-Medium",
-                            fontSize: ScreenUtil().setSp(15),
-                            color: Color(0xFF252B37),
-                          ),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFF252B37),),
                         ),
                       ),
                     ],
@@ -136,15 +133,10 @@ class _RateScreenState extends State<RateScreen> {
                         );
                     },
                     child: Text(
-                          "Go more orders",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontFamily: "Poppin-semibold",
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFFAB2929),
-                          ),
-                        ),
+                      "Go more orders",
+                      textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Color(0xFFAB2929), fontWeight: FontWeight.bold)
+                    ),
                   ),
               
                 ],

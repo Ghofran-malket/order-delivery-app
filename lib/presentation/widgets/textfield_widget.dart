@@ -45,10 +45,12 @@ class TextFieldWidget extends StatelessWidget {
         )),
       ),
       child: TextField(
+        textAlignVertical: TextAlignVertical.center,
         controller: controller,
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
         maxLines: maxLines,
+        style: Theme.of(context).textTheme.labelMedium,
         decoration: InputDecoration(
             prefixIcon: icon != null
                 ? Icon(
@@ -58,12 +60,11 @@ class TextFieldWidget extends StatelessWidget {
                 : null,
             hintText: hint,
             border: InputBorder.none,
-            hintStyle: keyboardType == TextInputType.multiline ? TextStyle(
-              fontFamily: "Poppin-semibold",
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF4B4B4B),
-            ): null
+            hintStyle: keyboardType == TextInputType.multiline ? 
+              Theme.of(context).textTheme.labelMedium!.copyWith(color: Color(0xFF4B4B4B))
+              : Theme.of(context).textTheme.labelMedium,
+            isDense: true,
+            contentPadding: EdgeInsets.symmetric(vertical: 5),
         ),
         onChanged: (value) => onChanged,
       ),

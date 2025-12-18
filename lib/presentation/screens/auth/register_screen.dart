@@ -151,12 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Text(
                       "Become a Genie",
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: "Poppin-semibold",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                   Image.asset('assets/logoCircle.png')
@@ -193,12 +188,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Text(
                     "This will be used as your profile photo & name",
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: "Poppin-semibold",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF4B4B4B),
-                    ),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Color(0xFF858585))
                   ),
                 ],
               ),
@@ -238,11 +228,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Text(
                     "Insert a Bio",
                     textAlign: TextAlign.start,
-                    style: const TextStyle(
-                        fontFamily: "Poppin-semibold",
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFF252B37),),
                   ),
                 ],
               ),
@@ -332,12 +318,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(17)),
       child: Text(
         "Please fill this field it can't be empty..",
-        style: const TextStyle(
-          fontFamily: "Poppin-semibold",
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          color: Colors.red,
-        ),
+        style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFFAB2929))
       ),
     );
   }

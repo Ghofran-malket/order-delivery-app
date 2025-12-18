@@ -76,19 +76,11 @@ class OrderDetailsScreen extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             "Estimated Total",
-                            style: TextStyle(
-                              fontFamily: "Poppins-Medium",
-                              fontSize: 15,
-                              color: Color(0xFF252B37),
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFF252B37),),
                           ),
                           Text(
                             "100\$",
-                            style: TextStyle(
-                              fontFamily: "poppin-semibold",
-                              fontSize: 16,
-                              color: Color(0xFFED1B24),
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFFED1B24),),
                           )
                         ],                      
                     ),                  
@@ -107,11 +99,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       ),
                       Text(
                         "Customer Note",
-                        style: TextStyle(
-                          fontFamily: "Poppins-Medium",
-                          fontSize: ScreenUtil().setSp(15),
-                          color: Color(0xFF252B37),
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFF252B37),)
                       )
                     ],
                 ),
@@ -142,11 +130,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       "when an unknown printer took a galley of type and scrambled it to make a type specimen book."
                       "It has survived not only five centuries,"
                       "but also the leap into electronic typesetting, remaining essentially unchanged",
-                      style: TextStyle(
-                        fontFamily: "Poppins-Regular",
-                        fontSize: ScreenUtil().setSp(12),
-                        color: Color(0xFF252B37),
-                      ),
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFF252B37),)
                     ),
                 ),
                 SizedBox(height: ScreenUtil().setHeight(30),),
@@ -184,12 +168,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   "Reject",
-                                  style: TextStyle(
-                                    fontFamily: "Poppin-semibold",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFFAB2929),
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFFAB2929),)
                                 ),
                               ),
                             )
@@ -228,7 +207,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       offset: Offset(
                         0.0,
                         ScreenUtil().setWidth(3.0),
-                      ), //(x,y)
+                      ),
                       blurRadius: ScreenUtil().setWidth(6.0),
                     ),
                   ],
@@ -245,11 +224,7 @@ class OrderDetailsScreen extends StatelessWidget {
                               left: ScreenUtil().setWidth(12.7)),
                           child: Text(
                             order.stores[index].name,
-                            style: TextStyle(
-                              fontFamily: "Poppins-Medium",
-                              fontSize: ScreenUtil().setSp(15),
-                              color: Color(0xFF252B37),
-                            ),
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Color(0xFF252B37)),   
                           ),
                         ),
                       ],
@@ -283,21 +258,13 @@ class OrderDetailsScreen extends StatelessWidget {
                                         Text(
                                           order.stores[index].items[i]
                                               .title,
-                                          style: TextStyle(
-                                            fontFamily: "Poppins-Medium",
-                                            fontSize: 12,
-                                            color: Color(0xFF252B37),
-                                          ),
+                                          style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFF252B37),),
                                         ),
                                         Spacer(),
                                         Text(
                                           order.stores[index].items[i]
                                               .quantity,
-                                          style: TextStyle(
-                                            fontFamily: "Poppins-Medium",
-                                            fontSize: 12,
-                                            color: Color(0xFF252B37),
-                                          ),
+                                          style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFF252B37),),
                                         )
                                       ],
                                     );

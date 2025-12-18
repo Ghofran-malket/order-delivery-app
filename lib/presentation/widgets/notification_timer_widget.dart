@@ -65,12 +65,7 @@ class NotificationTimerWidgetState extends State<NotificationTimerWidget>
                     builder: (context, Widget? child) {
                       return Text(
                         timerString,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          letterSpacing: 0.5,
-                          color: Color(0xFF252B37),
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Color(0xFF252B37))
                       );
                     }))
           ],

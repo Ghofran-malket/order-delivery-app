@@ -26,10 +26,9 @@ class UserDataWidget extends StatelessWidget {
               child: Text(
                 title,
                 textAlign: TextAlign.center,
-                //style: FontConfig.semiBold_20,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
-            Image.asset('assets/logoCircle.png')
           ],
         ),
         SizedBox(height: ScreenUtil().setHeight(50)),
@@ -44,29 +43,17 @@ class UserDataWidget extends StatelessWidget {
         Text(
           user.name,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: "Poppins-Medium",
-            fontSize: ScreenUtil().setSp(18),
-            color: Color(0xFF252B37),
-          ),
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Color(0xFF252B37))
         ),
         SizedBox(height: ScreenUtil().setHeight(3)),
         Text(
           "${user.city!} , ${user.country!}",
-          style: TextStyle(
-            fontFamily: "Poppins-Regular",
-            fontSize: ScreenUtil().setSp(12),
-            //color: HexColor("#858585"),
-          ),
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Color(0xFF858585))
         ),
         SizedBox(height: ScreenUtil().setHeight(3)),
         Text(
           "${user.name} knows these languages : ${user.languages}",
-          style: TextStyle(
-            fontFamily: "Poppins-Regular",
-            fontSize: ScreenUtil().setSp(12),
-            color: Color(0xFF858585),
-          ),
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Color(0xFF858585))
         ),
         SizedBox(height: ScreenUtil().setHeight(20)),
         Row(
@@ -79,7 +66,7 @@ class UserDataWidget extends StatelessWidget {
               children: <Widget>[
                 Text(
                   user.likeCount.toString(),
-                  //style: FontConfig.semiBold_12
+                  style: Theme.of(context).textTheme.labelSmall
                 ),
                 Icon(
                   Icons.thumb_up_alt,
@@ -94,7 +81,7 @@ class UserDataWidget extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     user.disLikeCount!.abs().toString(),
-                    //style: FontConfig.semiBold_12
+                    style: Theme.of(context).textTheme.labelSmall
                   ),
                   Icon(
                     Icons.thumb_down_alt,
@@ -106,11 +93,7 @@ class UserDataWidget extends StatelessWidget {
         SizedBox(height: ScreenUtil().setHeight(20)),
         Text(
           user.bio!,
-          style: TextStyle(
-            fontFamily: "Poppins-Regular",
-            fontSize: ScreenUtil().setSp(13.2),
-            color: Color(0xFF858585),
-          ),
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Color(0xFF858585))
         ),
         SizedBox(height: ScreenUtil().setHeight(40)),
         

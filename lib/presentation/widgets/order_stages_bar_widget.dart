@@ -52,7 +52,7 @@ class OrderStagesBarWidget extends StatelessWidget {
               child: Text(
                 order.customerId,
                 textAlign: TextAlign.start,
-                //style: FontConfig.semiBold_20,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
             InkWell(
@@ -115,7 +115,10 @@ class OrderStagesBarWidget extends StatelessWidget {
                     .map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
-                    child: Text(choice),
+                    child: Text(
+                      choice,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   );
                 }).toList();
               },

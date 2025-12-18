@@ -48,7 +48,7 @@ class MessageWidget extends StatelessWidget {
               child: type == 'message'
                   ? Text(
                       message,
-                      style: TextStyle(color: Colors.black),
+                      style: Theme.of(context).textTheme.bodySmall
                     )
                   : type == 'image'
                       ? GestureDetector(
@@ -66,9 +66,7 @@ class MessageWidget extends StatelessWidget {
                       : (type == 'link' && myMessage)
                           ? Text(
                               message,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  decoration: TextDecoration.underline),
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.white, decoration: TextDecoration.underline)
                             )
                           : type == 'link' && !myMessage
                               ? GestureDetector(
@@ -83,15 +81,11 @@ class MessageWidget extends StatelessWidget {
                                   },
                                   child: Text(
                                     message,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        decoration: TextDecoration.underline),
+                                    style: Theme.of(context).textTheme.bodySmall!.copyWith(decoration: TextDecoration.underline)
                                   ))
                               : Text(
                                   message,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      decoration: TextDecoration.underline),
+                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(decoration: TextDecoration.underline)
                                 )),
         )
       ],

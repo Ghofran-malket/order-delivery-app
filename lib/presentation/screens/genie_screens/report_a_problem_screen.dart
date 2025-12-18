@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:algenie/data/models/report_model.dart';
 import 'package:algenie/services/api_service.dart';
 import 'package:algenie/services/order_api_services.dart';
@@ -73,7 +75,7 @@ class _ReportAProblemScreenState extends State<ReportAProblemScreen> {
                               size: ScreenUtil().setSp(20))),
                       Text(
                         customer.name,
-                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       Container(
                           height: ScreenUtil().setHeight(28),
@@ -82,7 +84,11 @@ class _ReportAProblemScreenState extends State<ReportAProblemScreen> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: NetworkImage(customer.image!)))),
+                                  image: customer.image!.startsWith("http") ? NetworkImage(customer.image!) 
+                                  : FileImage(File(customer.image!))
+                              )
+                          )
+                      ),
                     ],
                   ),
                   SizedBox(height: 40),
@@ -135,11 +141,7 @@ class _ReportAProblemScreenState extends State<ReportAProblemScreen> {
                                 ),
                                 Text(
                                   reports[index],
-                                  style: TextStyle(
-                                    fontFamily: "Poppins-Medium",
-                                    fontSize: ScreenUtil().setSp(15),
-                                    color: Color(0xFF2F343F),
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Color(0xFF252B37),),
                                 )
                               ],
                             ),
@@ -153,11 +155,7 @@ class _ReportAProblemScreenState extends State<ReportAProblemScreen> {
 
                   Text(
                     "Please, Describe the Problem",
-                    style: TextStyle(
-                      fontFamily: "Poppins-Medium",
-                      fontSize: ScreenUtil().setSp(15),
-                      color: Color(0xFF252B37),
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFF252B37),),
                   ),
 
                   SizedBox(height: 10),
@@ -208,12 +206,7 @@ class _ReportAProblemScreenState extends State<ReportAProblemScreen> {
                       child: Text(
                         "Cancel Order",
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: "Poppin-semibold",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFFAB2929),
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Color(0xFFAB2929), fontWeight: FontWeight.bold)
                       ),
                     ),
                   ),

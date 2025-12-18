@@ -27,12 +27,7 @@ class PrimaryButtonWidget extends StatelessWidget {
             size: 30,
           ): Text( title,
             textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontFamily: "Poppin-semibold",
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
           )
         ),
       ),

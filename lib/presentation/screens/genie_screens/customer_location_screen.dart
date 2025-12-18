@@ -48,11 +48,7 @@ class CustomerLocationScreen extends StatelessWidget {
             Center(
               child: Text(
                 "Go to customer location",
-                style: TextStyle(
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 20,
-                  color: Color(0xFF000000),
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
 
@@ -87,11 +83,7 @@ class CustomerLocationScreen extends StatelessWidget {
                   },
                   child: Text(
                     "Navigate",
-                    style: TextStyle(
-                      fontFamily: "poppin-semibold",
-                      fontSize: ScreenUtil().setSp(17),
-                      color: Color(0xFFAB2929),
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Color(0xFFAB2929), fontWeight: FontWeight.bold)
                   ),
                 )
               ],
@@ -115,11 +107,7 @@ class CustomerLocationScreen extends StatelessWidget {
                       ),
                       Text(
                         "Customer Address",
-                        style: TextStyle(
-                          fontFamily: "Poppins-Medium",
-                          fontSize: ScreenUtil().setSp(15),
-                          color: Color(0xFF252B37),
-                        ),
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Color(0xFF252B37),)
                       )
                     ],
                   ),
@@ -148,11 +136,7 @@ class CustomerLocationScreen extends StatelessWidget {
                         top: 12, bottom: 12, left: 12, right: 22),
                     child: Text(
                       "${order.orderLocation}",
-                      style: TextStyle(
-                        fontFamily: "Poppins-Regular",
-                        fontSize: ScreenUtil().setSp(12),
-                        color: Color(0xFF252B37),
-                      ),
+                      style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Color(0xFF252B37),)
                     ),
                   ),
                   SizedBox(height: ScreenUtil().setHeight(40)),
