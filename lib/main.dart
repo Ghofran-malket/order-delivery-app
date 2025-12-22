@@ -2,7 +2,6 @@ import 'package:algenie/data/models/order_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_notification_screen.dart';
 import 'package:algenie/presentation/screens/splash_screen.dart';
 import 'package:algenie/providers/auth_provider.dart';
-import 'package:algenie/startup_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -84,26 +83,27 @@ class _MyAppState extends State<MyApp> {
     print("authProvider.isLoggedIn.toString()" +
         authProvider.isLoggedIn.toString());
     return MaterialApp(
-      navigatorKey: navigatorKey,
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        textTheme: const TextTheme(
-          headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
-          headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          titleLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-          titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-          bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-          labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-        ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        scaffoldBackgroundColor: Colors.white,
-        useMaterial3: true,
-      ),
-      home: authProvider.isLoggedIn ? StartupWidget() : SplashScreen(),
-    );
+          navigatorKey: navigatorKey,
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+            textTheme: const TextTheme(
+              headlineLarge: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+              headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              titleLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+              labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+            ),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            scaffoldBackgroundColor: Colors.white,
+            useMaterial3: true,
+          ),
+          home:  SplashScreen(),
+        
+      );
   }
 }

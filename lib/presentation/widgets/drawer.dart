@@ -1,6 +1,7 @@
 import 'package:algenie/core/styles/app_style.dart';
-import 'package:algenie/data/models/order_model.dart';
+import 'package:algenie/main.dart';
 import 'package:algenie/presentation/screens/profile_screen.dart';
+import 'package:algenie/presentation/screens/splash_screen.dart';
 import 'package:algenie/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,8 +49,10 @@ class GenieDrawer extends StatelessWidget {
             ],
           ),
           child: Consumer<AuthProvider>(builder: (context, auth, child) {
-            final user = auth.user!;
-            print("ID"+user.id.toString());
+            final user = auth.user;
+            if (user == null) {
+              return const SizedBox();
+            }
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,7 +208,14 @@ class GenieDrawer extends StatelessWidget {
                     
 
                 InkWell(
-                  onTap: ()=> auth.logout(),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await context.read<AuthProvider>().logout();
+                    navigatorKey.currentState!.pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => SplashScreen()),
+                      (route) => false,
+                    );
+                  },
                   child: drawerListTile(
                       SvgPicture.string(
                         '<svg viewBox="0.0 0.0 14.0 14.0" ><path transform="translate(4.83, -4.5)" d="M 4.499999523162842 18.5 L 7.611110687255859 18.5 C 8.470220565795898 18.5 9.166666984558105 17.80355262756348 9.166666984558105 16.94444274902344 L 9.166666984558105 6.05555534362793 C 9.166666984558105 5.196444988250732 8.470219612121582 4.499999523162842 7.611110687255859 4.499999523162842 L 4.499999523162842 4.499999523162842" fill="none" stroke="#ed1b24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path transform="translate(-24.0, -7.39)" d="M 27.88888931274414 18.27777862548828 L 24 14.38888740539551 L 27.88888931274414 10.49999904632568" fill="none" stroke="#ed1b24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path transform="translate(-13.5, -11.0)" d="M 13.5 18 L 22.83333396911621 18" fill="none" stroke="#ed1b24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>',
