@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:algenie/core/styles/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -69,11 +68,11 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                       
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          image: DecorationImage(
+                          image: _imageFile != null ? DecorationImage(
                               fit: BoxFit.fill,
-                              image: _imageFile != null ? FileImage(_imageFile!) : AssetImage('assets/algenie_logo.png'),
-                              
-                          )
+                              image: FileImage(_imageFile!),  
+                          ): null,
+                          color: _imageFile != null ? null : Color(0xFF252B37).withValues(alpha: 0.3),
                       )
                   ),
                   Positioned(
