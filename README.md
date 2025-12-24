@@ -108,7 +108,7 @@ communication between users.
 
 ### Entry Screens
 | Splash | Welcome |
-|------|---------------|---------------|
+|------|---------------|
 | ![](screenshots/splash_screen.jpg) | ![](screenshots/welcome_screen.jpg) |
 
 ### Authentication
@@ -118,7 +118,8 @@ communication between users.
 
 ### Post-Login Flow
 | Invite Friends |
-| ![](screenshots/invite_friends_screen.jpg) |
+|---------------|
+![](screenshots/invite_friends_screen.jpg)
 
 ### Deliver Agent (genie) Flow
 | Home (onffile genie) | Home (online genie) | Home (online genie 2) | 
@@ -127,12 +128,13 @@ communication between users.
 
 ### Order Flow
 | Notification | Home (with order) | Order Details with multiple store | Go To Store | Arrive To Store | Pick up Done | Receipt Photo | Customer Location | Order Delivered | Customer Rating | Report a Problem
-|------|-------------------|
+|------|-------------------|------|---------------|---------------|------|-------------------|------|---------------|---------------|------|
 | ![](screenshots/notification_screen.jpg) | ![](screenshots/home_screen_with_order.jpg) | ![](screenshots/order_details_screen.jpg)  | ![](screenshots/go_to_store_screen.jpg) | ![](screenshots/arrive_to_store_screen.jpg) | ![](screenshots/pick_up_done_screen.jpg) | ![](screenshots/take_a_receipt_photo.jpg) | ![](screenshots/customer_location_screen.jpg) | ![](screenshots/order_delivered_screen.jpg) | ![](screenshots/rating_screen.jpg) | ![](screenshots/report_a_problem_screen.jpg) |
 
 ### Chat
 | Chat |
-| ![](screenshots/chat_screen.jpg) |
+|------|
+![](screenshots/chat_screen.jpg)
 
 ---
 
