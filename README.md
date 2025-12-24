@@ -127,14 +127,26 @@ communication between users.
 | ![](screenshots/home_screen_offline_genie.jpg) | ![](screenshots/home_screen_online_genie.jpg) | ![](screenshots/home_screen_online_genie_2.jpg) |
 
 ### Order Flow
-| Notification | Home (with order) | Order Details with multiple store | Go To Store | Arrive To Store | Pick up Done | Receipt Photo | Customer Location | Order Delivered | Customer Rating | Report a Problem
-|------|-------------------|------|---------------|---------------|------|-------------------|------|---------------|---------------|------|
-| ![](screenshots/notification_screen.jpg) | ![](screenshots/home_screen_with_order.jpg) | ![](screenshots/order_details_screen.jpg)  | ![](screenshots/go_to_store_screen.jpg) | ![](screenshots/arrive_to_store_screen.jpg) | ![](screenshots/pick_up_done_screen.jpg) | ![](screenshots/take_a_receipt_photo.jpg) | ![](screenshots/customer_location_screen.jpg) | ![](screenshots/order_delivered_screen.jpg) | ![](screenshots/rating_screen.jpg) | ![](screenshots/report_a_problem_screen.jpg) |
+| Notification | Home (with order) | Order Details with multiple store | 
+|------|-------------------|------|
+| ![](screenshots/notification_screen.jpg) | ![](screenshots/home_screen_with_order.jpg) | ![](screenshots/order_details_screen.jpg)  |
+
+| Go To Store | Arrive To Store | Pick up Done |
+|------|-------------------|------|
+| ![](screenshots/go_to_store_screen.jpg) | ![](screenshots/arrive_to_store_screen.jpg) | ![](screenshots/pick_up_done_screen.jpg) |
+
+| Receipt Photo | Customer Location | Order Delivered |
+|------|-------------------|------|
+| ![](screenshots/take_a_receipt_photo.jpg) | ![](screenshots/customer_location_screen.jpg) | ![](screenshots/order_delivered_screen.jpg) |
+
+| Customer Rating | Report a Problem |
+|------|-------------------|
+| ![](screenshots/rating_screen.jpg) | ![](screenshots/report_a_problem_screen.jpg) |
 
 ### Chat
 | Chat |
 |------|
-![](screenshots/chat_screen.jpg)
+| ![](screenshots/chat_screen.jpg) |
 
 ---
 
