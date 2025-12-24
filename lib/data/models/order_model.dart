@@ -17,7 +17,7 @@ class Order {
   Map<String, dynamic> genieProgress;
 
   Order({required this.genieId, required this.orderId, required this.customerId, required this.stores, required this.orderStatus,
-   this.createdAt, required this.totalReceiptValue, this.orderLocation, required this.genieProgress});
+   this.createdAt, this.updatedAt, required this.totalReceiptValue, this.orderLocation, required this.genieProgress});
 
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -41,6 +41,7 @@ class Order {
         speed: 0.0,
         speedAccuracy: 0.0,
       ),
+      updatedAt: DateTime.parse(json['updatedAt']),
       genieProgress: json['genieProgress']
     );
   }
@@ -53,7 +54,8 @@ class Order {
       'stores': stores.map((store)=> store.toJson()).toList(),
       'orderStatus': orderStatus,
       'createdAt': createdAt,
-      'receiptValue': totalReceiptValue
+      'receiptValue': totalReceiptValue,
+      'updatedAt': updatedAt
     };
   }
 

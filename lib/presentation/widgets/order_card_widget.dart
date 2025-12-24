@@ -32,7 +32,7 @@ class OrderCardWidget extends StatelessWidget {
             ),
             SizedBox(height: 5,),
             Text(
-              "Accepted ${DateTime.now().difference(order.createdAt!).inMinutes} min ago",
+              "Accepted ${DateTime.now().difference(order.updatedAt!).inMinutes} min ago",
               style: Theme.of(context).textTheme.bodySmall,
             ),
             SizedBox(height: 5,),
