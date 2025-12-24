@@ -119,7 +119,7 @@ communication between users.
 ### Post-Login Flow
 | Invite Friends |
 |---------------|
-![](screenshots/invite_friends_screen.jpg)
+| <img src="screenshots/invite_friends_screen.jpg" width="350"> |
 
 ### Deliver Agent (genie) Flow
 | Home (onffile genie) | Home (online genie) | Home (online genie 2) | 
@@ -146,7 +146,7 @@ communication between users.
 ### Chat
 | Chat |
 |------|
-| ![](screenshots/chat_screen.jpg) |
+| <img src="screenshots/chat_screen.jpg" width="350"> |
 
 ---
 
