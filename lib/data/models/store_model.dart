@@ -20,7 +20,7 @@ class Store {
       name: json['name'],
       title: json['title'],
       items: (json['items'] as List).map((itemJson) => Item.fromJson(itemJson)).toList(),
-      location: Position(
+      location: json['storeLocation']['latitude'] != null ? Position(
         longitude: json['storeLocation']['longitude'],
         latitude: json['storeLocation']['latitude'],
         accuracy: 0.0,
@@ -31,8 +31,8 @@ class Store {
         headingAccuracy: 0.0,
         speed: 0.0,
         speedAccuracy: 0.0,
-      ),
-      storeStatus: json['storeStatus']
+      ): null,
+      storeStatus: json['storeOrderStatus']
     );
   }
 
@@ -42,7 +42,7 @@ class Store {
       'name': name,
       'title': title,
       'items': items.map((item) => item.toJson()).toList(),
-      'storeStatus': storeStatus,
+      'storeOrderStatus': storeStatus,
       'storeLocation.longitude': location?.longitude,
       'storeLocation.latitude': location?.latitude
     };
