@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:algenie/data/models/order_model.dart';
-import 'package:algenie/data/models/store_model.dart';
+import 'package:algenie/data/models/order_store_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_details-screen.dart';
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
 import 'package:algenie/presentation/widgets/primary_button_widget.dart';
@@ -22,7 +22,7 @@ import 'package:algenie/services/order_api_services.dart';
 
 class ReceiptPhotoScreen extends StatefulWidget {
   final Order order;
-  final Store store;
+  final OrderStore store;
 
   const ReceiptPhotoScreen({super.key, required this.order, required this.store});
 

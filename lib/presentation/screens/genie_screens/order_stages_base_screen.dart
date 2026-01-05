@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:algenie/presentation/widgets/slider_button_widget.dart';
 import 'package:algenie/data/models/order_model.dart';
-import 'package:algenie/data/models/store_model.dart';
+import 'package:algenie/data/models/order_store_model.dart';
 
 class OrderStagesBaseScreen extends StatelessWidget {
   final Order order;
-  final Store store;
+  final OrderStore store;
   final String title;
   final String buttonLabel;
   final VoidCallback onAction;

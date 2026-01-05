@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:algenie/data/models/store_model.dart';
+import 'package:algenie/data/models/order_store_model.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
@@ -9,7 +9,7 @@ class Order {
   String orderId;
   String customerId;
   String orderStatus;
-  List<Store> stores;
+  List<OrderStore> stores;
   DateTime? createdAt;
   Position? orderLocation;
   DateTime? updatedAt;
@@ -25,7 +25,7 @@ class Order {
       genieId: json['genieId'] ,
       orderId: json['orderId'],
       customerId: json['customerId'],
-      stores: (json['stores'] as List).map( (storeJson) => Store.fromJson(storeJson)).toList(),
+      stores: (json['stores'] as List).map( (storeJson) => OrderStore.fromJson(storeJson)).toList(),
       orderStatus: json['orderStatus'],
       createdAt: DateTime.parse(json['createdAt']),
       totalReceiptValue: json['receiptValue'],
@@ -65,7 +65,7 @@ class Order {
       genieId: data['genieId'] ,
       orderId: data['orderId'],
       customerId: data['customerId'],
-      stores: (jsonDecode(data['stores']) as List).map( (storeJson) => Store.fromJson(storeJson)).toList(),
+      stores: (jsonDecode(data['stores']) as List).map( (storeJson) => OrderStore.fromJson(storeJson)).toList(),
       orderStatus: data['orderStatus'],
       createdAt: format.parse(data['createdAt'].split(' (')[0]),
       totalReceiptValue: data['receiptValue'],

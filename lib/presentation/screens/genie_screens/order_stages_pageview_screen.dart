@@ -1,7 +1,7 @@
 import 'package:algenie/core/constants/app_constants.dart';
 import 'package:algenie/data/models/message_model.dart';
 import 'package:algenie/data/models/order_model.dart';
-import 'package:algenie/data/models/store_model.dart';
+import 'package:algenie/data/models/order_store_model.dart';
 import 'package:algenie/presentation/screens/genie_screens/order_stages_base_screen.dart';
 import 'package:algenie/presentation/screens/genie_screens/receipt_photo_screen.dart';
 import 'package:algenie/presentation/widgets/order_stages_bar_widget.dart';
@@ -13,7 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderStagesPageviewScreen extends StatefulWidget {
   final Order order;
-  final Store store;
+  final OrderStore store;
   final int page;
   final int storeIndex;
   OrderStagesPageviewScreen(

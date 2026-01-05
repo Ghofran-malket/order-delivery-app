@@ -1,11 +1,11 @@
 import 'package:algenie/core/styles/app_style.dart';
-import 'package:algenie/data/models/store_model.dart';
+import 'package:algenie/data/models/order_store_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 
 class StoreCardWidget extends StatelessWidget {
-  final Store store;
+  final OrderStore store;
   final Position initialPosition;
   const StoreCardWidget(
       {super.key,

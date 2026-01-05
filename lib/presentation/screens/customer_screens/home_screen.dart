@@ -1,5 +1,5 @@
 import 'package:algenie/core/styles/app_style.dart';
-import 'package:algenie/data/models/store_model.dart';
+import 'package:algenie/data/models/order_store_model.dart';
 import 'package:algenie/presentation/screens/customer_screens/offre_screen.dart';
 import 'package:algenie/presentation/widgets/customer_home_bar_widget.dart';
 import 'package:algenie/presentation/widgets/store_card_widget.dart';
@@ -22,8 +22,8 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _current = 0;
-  List<Store> nearbyStores = [
-    Store(
+  List<OrderStore> nearbyStores = [
+    OrderStore(
         id: '1',
         title: 'Store1',
         items: [],
@@ -41,7 +41,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         ),
         name: 'Aushan',
         storeStatus: 'sdsd'),
-    Store(
+    OrderStore(
         id: '1',
         title: 'Store1',
         items: [],

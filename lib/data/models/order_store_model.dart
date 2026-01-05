@@ -1,18 +1,25 @@
+import 'package:algenie/data/models/order_item_model.dart';
 import 'package:geolocator/geolocator.dart';
 
-class Store {
+class OrderStore {
   String id;
   String name;
   String title;
+  List<OrderItem> items;
   Position? location;
+  String storeStatus;
 
-  Store({required this.id, required this.name, required this.title, required this.location,});
 
-  factory Store.fromJson(Map<String, dynamic> json) {
-    return Store(
+
+  OrderStore({required this.id, required this.name, required this.title, required this.items, required this.location, required this.storeStatus});
+
+
+  factory OrderStore.fromJson(Map<String, dynamic> json) {
+    return OrderStore(
       id: json['_id'],
       name: json['name'],
       title: json['title'],
+      items: (json['items'] as List).map((itemJson) => OrderItem.fromJson(itemJson)).toList(),
       location: Position(
         longitude: json['storeLocation']['longitude'],
         latitude: json['storeLocation']['latitude'],
@@ -24,7 +31,8 @@ class Store {
         headingAccuracy: 0.0,
         speed: 0.0,
         speedAccuracy: 0.0,
-      )
+      ),
+      storeStatus: json['storeStatus']
     );
   }
 
@@ -33,6 +41,8 @@ class Store {
       '_id': id,
       'name': name,
       'title': title,
+      'items': items.map((item) => item.toJson()).toList(),
+      'storeStatus': storeStatus,
       'storeLocation.longitude': location?.longitude,
       'storeLocation.latitude': location?.latitude
     };
