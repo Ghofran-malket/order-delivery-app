@@ -3,21 +3,21 @@ class Item {
   String description;
   String image;
   String price;
-  String catalogue;
+  String category;
   String storeId;
 
   Item({required this.title, required this.description, required this.image, 
-  required this.price, required this.catalogue, required this.storeId});
+  required this.price, required this.category, required this.storeId});
 
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
       title: json['title'] ,
-      description: json['quantity'],
+      description: json['description'],
       image: json['image'],
       price: json['price'],
-      catalogue: json['catalogue'],
-      storeId: json['storeId']
+      category: json['category'],
+      storeId: json['store']
     );
   }
 
@@ -27,8 +27,8 @@ class Item {
       'description': description,
       'image': image,
       'price': price,
-      'catalogue': catalogue,
-      'storeId': storeId
+      'category': category,
+      'store': storeId
     };
   }
 }
